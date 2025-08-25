@@ -25,39 +25,26 @@ import java.util.List;
 @Configuration
 public class SecurityConfiguration {
 
-    private final JwtAuthFilter jwtFilter;
-
-    public SecurityConfiguration(JwtAuthFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
-
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtFilter) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Swagger
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        // Login to get a token
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        // Public reads
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                        // Admin only for writes
                         .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,  "/api/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"/api/**").hasRole("ADMIN")
-                        // anything else
                         .anyRequest().authenticated()
                 )
-                // plug JWT filter
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
-    // simple dev user; swap to DB-backed later
+    // dev user; swap to DB-backed later
     @Bean
     UserDetailsService userDetailsService(PasswordEncoder encoder) {
         return new InMemoryUserDetailsManager(
@@ -67,12 +54,10 @@ public class SecurityConfiguration {
 
     @Bean PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
 
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
+    @Bean AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
         return cfg.getAuthenticationManager();
     }
 
-    // CORS for Angular dev
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
@@ -85,5 +70,3 @@ public class SecurityConfiguration {
         return source;
     }
 }
-
-
