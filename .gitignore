@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -22,3 +23,77 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+=======
+##############################
+# IntelliJ / JetBrains
+##############################
+.idea/
+*.iws
+*.iml
+*.ipr
+
+##############################
+# Maven / Gradle
+##############################
+target/
+out/
+build/
+
+##############################
+# Logs
+##############################
+*.log
+log/
+logs/
+
+##############################
+# OS files
+##############################
+.DS_Store
+Thumbs.db
+
+##############################
+# Backend (Spring Boot)
+##############################
+# Maven Wrapper JAR
+.mvn/wrapper/maven-wrapper.jar
+
+# Compiled class files
+*.class
+
+# H2 / Derby / SQLite local databases
+*.db
+*.mv.db
+*.h2.db
+*.derby.db
+
+##############################
+# Frontend (Angular)
+##############################
+# Node modules
+node_modules/
+
+# Build output
+dist/
+tmp/
+out-tsc/
+
+# IDE config
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Angular environment files
+# src/environments/environment*.ts
+
+##############################
+# Misc
+##############################
+*.bak
+*.tmp
+*.swp
+*~
+>>>>>>> d50784a (Initial commit: backend + frontend combined)
