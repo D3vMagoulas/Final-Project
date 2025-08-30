@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface AuthRequest {
   username: string;
@@ -16,12 +15,10 @@ export interface AuthResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private base = environment.apiUrl;
+  private readonly base = `${environment.apiUrl}/auth`;
 
   login(body: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.base}/auth/login`, body).pipe(
-      tap(res => localStorage.setItem('token', res.token))
-    );
+    return this.http.post<AuthResponse>(`${this.base}/login`, body);
   }
 
   logout() {
@@ -32,7 +29,12 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  get isAuthenticated(): boolean {
+  set token(val: string | null) {
+    if (val) localStorage.setItem('token', val);
+    else localStorage.removeItem('token');
+  }
+
+  isLoggedIn(): boolean {
     return !!this.token;
   }
 }
