@@ -1,40 +1,35 @@
-// src/app/features/tickets/checkout/checkout.component.ts
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TicketsService } from '../../../shared/tickets.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+
+import { TicketService, PurchaseResponse } from '../../../shared/ticket.service';
 
 @Component({
-  standalone:true,
-  selector:'app-checkout',
-  imports:[ReactiveFormsModule, NgIf],
-  template: `
-  <h2>Checkout</h2>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <label>Quantity
-      <input type="number" formControlName="qty" min="1">
-    </label>
-    <button type="submit" [disabled]="form.invalid || loading">Purchase</button>
-    <div *ngIf="msg">{{msg}}</div>
-  </form>
-  `,
+  selector: 'app-checkout',
+  standalone: true,
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.scss'],
+  imports: [CommonModule, FormsModule, MatButtonModule],
 })
 export class CheckoutComponent {
   private route = inject(ActivatedRoute);
-  private api = inject(TicketsService);
-  private fb = inject(FormBuilder);
   private router = inject(Router);
+  private api = inject(TicketService);
 
-  id = Number(this.route.snapshot.paramMap.get('id'));
-  form = this.fb.group({ qty: [1, [Validators.required, Validators.min(1)]] });
-  loading = false; msg = '';
+  id!: number;
+  qty = 1;
 
-  submit(){
-    this.loading = true;
-    this.api.purchase(this.id, this.form.value.qty!).subscribe({
-      next: () => { this.msg = 'Success!'; this.loading = false; this.router.navigateByUrl('/tickets'); },
-      error: () => { this.msg = 'Failed, try again.'; this.loading = false; }
+  ngOnInit(): void {
+    const raw = this.route.snapshot.paramMap.get('id');
+    this.id = Number(raw ?? NaN);
+  }
+
+  purchase(): void {
+    this.api.purchase(this.id, this.qty).subscribe({
+      next: (_res: PurchaseResponse) => this.router.navigate(['/tickets']),
+      error: () => {},
     });
   }
 }

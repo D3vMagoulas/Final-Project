@@ -1,0 +1,20 @@
+<section class="tickets">
+  <h1>Upcoming fixtures</h1>
+
+  <ng-container *ngIf="fixtures$ | async as fixtures; else loading">
+    <div class="fixture" *ngFor="let f of fixtures">
+      <div class="left">
+        <div class="opponent">{{ f.opponent }}</div>
+        <div class="date">{{ f.date | date:'mediumDate' }}</div>
+      </div>
+      <div class="right">
+        <div class="price">{{ f.price | currency }}</div>
+        <a [routerLink]="['/tickets/checkout', f.id]" class="btn">Buy</a>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <p>Loading fixtures…</p>
+  </ng-template>
+</section>

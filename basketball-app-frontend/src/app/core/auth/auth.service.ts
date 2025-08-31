@@ -1,13 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 export interface AuthRequest {
   username: string;
   password: string;
 }
-
 export interface AuthResponse {
   token: string;
 }
@@ -18,20 +17,17 @@ export class AuthService {
   private readonly base = `${environment.apiUrl}/auth`;
 
   login(body: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.base}/login`, body);
+    return this.http.post<AuthResponse>(`${this.base}/login`, body).pipe(
+      tap((res: AuthResponse) => localStorage.setItem('token', res.token))
+    );
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
   }
 
   get token(): string | null {
     return localStorage.getItem('token');
-  }
-
-  set token(val: string | null) {
-    if (val) localStorage.setItem('token', val);
-    else localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {

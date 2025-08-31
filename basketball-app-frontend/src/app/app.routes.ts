@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './core/auth/auth.guard';
+import { authGuard } from './core/auth/auth.guard'; // ⬅️ lowercase function name
 
 export const routes: Routes = [
   {
@@ -28,16 +28,10 @@ export const routes: Routes = [
   },
   {
     path: 'tickets/checkout/:id',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard], // ⬅️ use the function guard
     loadComponent: () =>
       import('./features/tickets/checkout/checkout.component').then(c => c.CheckoutComponent),
     title: 'Checkout',
-  },
-  {
-    path: 'login',
-    loadComponent: () =>
-      import('./features/auth/login/login.component').then(c => c.LoginComponent),
-    title: 'Sign in',
   },
   { path: '**', redirectTo: '' },
 ];
