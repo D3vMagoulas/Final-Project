@@ -1,7 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, tap, map } from 'rxjs';
 
 export interface AuthRequest {
   username: string;
@@ -17,18 +16,18 @@ export interface SignupRequest {
   surname: string;
   email: string;
   phone: string;
-  password: string; // keep if your API requires it
+  password: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private readonly base = `${environment.apiUrl}/auth`;
+  private base = '/api/auth';
 
   login(body: AuthRequest): Observable<void> {
     return this.http.post<AuthResponse>(`${this.base}/login`, body).pipe(
-      tap((res) => localStorage.setItem('token', res.token)),
-      tap(() => void 0) // makes the type Observable<void>
+      tap(res => localStorage.setItem('token', res.token)),
+      map(() => void 0) // ⬅ convert stream to void
     );
   }
 

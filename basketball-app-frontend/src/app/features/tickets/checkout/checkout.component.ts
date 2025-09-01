@@ -2,8 +2,6 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-
 import { TicketService, PurchaseResponse } from '../../../shared/ticket.service';
 
 @Component({
@@ -11,7 +9,7 @@ import { TicketService, PurchaseResponse } from '../../../shared/ticket.service'
   standalone: true,
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
-  imports: [CommonModule, FormsModule, MatButtonModule],
+  imports: [CommonModule, FormsModule],
 })
 export class CheckoutComponent {
   private route = inject(ActivatedRoute);
@@ -23,13 +21,13 @@ export class CheckoutComponent {
 
   ngOnInit(): void {
     const raw = this.route.snapshot.paramMap.get('id');
-    this.id = Number(raw ?? NaN);
+    this.id = raw ? Number(raw) : NaN;
   }
 
   purchase(): void {
     this.api.purchase(this.id, this.qty).subscribe({
       next: (_res: PurchaseResponse) => this.router.navigate(['/tickets']),
-      error: () => {},
+      error: () => {}
     });
   }
 }
