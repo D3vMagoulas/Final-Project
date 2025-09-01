@@ -1,20 +1,18 @@
-<section class="tickets">
-  <h1>Upcoming fixtures</h1>
+<h1>Tickets</h1>
 
-  <ng-container *ngIf="fixtures$ | async as fixtures; else loading">
-    <div class="fixture" *ngFor="let f of fixtures">
-      <div class="left">
-        <div class="opponent">{{ f.opponent }}</div>
-        <div class="date">{{ f.date | date:'mediumDate' }}</div>
-      </div>
-      <div class="right">
-        <div class="price">{{ f.price | currency }}</div>
-        <a [routerLink]="['/tickets/checkout', f.id]" class="btn">Buy</a>
-      </div>
-    </div>
-  </ng-container>
+<div class="grid" *ngIf="fixtures$ | async as fixtures">
+  <article class="card" *ngFor="let f of fixtures">
+    <h3>{{ f.opponent }}</h3>
+    <div class="meta">{{ f.date | date:'mediumDate' }}</div>
 
-  <ng-template #loading>
-    <p>Loading fixtures…</p>
-  </ng-template>
-</section>
+    <a *ngIf="auth.isLoggedIn(); else loginFirst"
+       class="btn"
+       [routerLink]="['/tickets/checkout', f.id]">Buy</a>
+
+    <ng-template #loginFirst>
+      <a class="btn outline"
+         routerLink="/auth/login"
+         [queryParams]="{ returnUrl: '/tickets' }">sign in to buy</a>
+    </ng-template>
+  </article>
+</div>

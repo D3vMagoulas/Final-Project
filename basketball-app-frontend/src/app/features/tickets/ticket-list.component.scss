@@ -1,8 +1,6 @@
-.tickets {
-  max-width: 900px; margin: 2rem auto; padding: 0 1rem;
-}
-.fixture {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: .75rem 0; border-bottom: 1px solid rgba(0,0,0,.08);
-}
-.btn { text-decoration: none; padding: .5rem .9rem; border: 1px solid #1976d2; border-radius: 6px; }
+.notice { background:#fff8e1; border:1px solid #ffe08a; padding:.75rem 1rem; border-radius:.5rem; margin-bottom:1rem; }
+.btn { padding:.5rem 1rem; border-radius:.5rem; border:1px solid currentColor; text-decoration:none; }
+.btn--ghost { opacity:.85; }
+.fixture { display:flex; align-items:center; justify-content:space-between; padding:.75rem 0; border-bottom:1px solid #eee; }
+.fixture__meta { color:#666; font-size:.9rem; }
+
