@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <a routerLink="/" class="nav-link">Home</a>
+
+  <ng-container *ngIf="!auth.isLoggedIn(); else loggedIn">
+    <a routerLink="/auth/login" class="nav-link">Login</a>
+    <a routerLink="/auth/signup" class="nav-link">Sign up</a>
+  </ng-container>
+
+  <ng-template #loggedIn>
+    <a (click)="logout()" class="nav-link">Logout</a>
+  </ng-template>
+</nav>

@@ -10,9 +10,10 @@ export const routes: Routes = [
 
   {
     path: 'tickets/checkout/:id',
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/tickets/checkout/checkout.component').then(c => c.CheckoutComponent),
-    title: 'Checkout'
+  canMatch: [authGuard],
+  loadComponent: () =>
+    import('./features/tickets/checkout/checkout.component')
+      .then(c => c.CheckoutComponent),
   },
 
  {

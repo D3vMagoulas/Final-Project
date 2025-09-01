@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { TicketService, Fixture } from '../../shared/ticket.service';
 import { AuthService } from '../../core/auth/auth.service';
 

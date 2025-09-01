@@ -1,30 +1,34 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 
 export interface Fixture {
   id: number;
   opponent: string;
-  date: string;
-  price: number;
+  date: string;     // or Date if you parse it
+  venue: string;
+}
+
+export interface PurchaseRequest {
+  fixtureId: number;
+  qty: number;
 }
 
 export interface PurchaseResponse {
-  token: string;
-  status?: string;
+  id: number;
+  status: 'OK';
 }
 
 @Injectable({ providedIn: 'root' })
 export class TicketService {
   private http = inject(HttpClient);
-  private readonly base = `${environment.apiUrl}/tickets`;
+  private base = '/api';
 
   list(): Observable<Fixture[]> {
-    return this.http.get<Fixture[]>(this.base);
+    return this.http.get<Fixture[]>(`${this.base}/fixtures`);
   }
 
-  purchase(fixtureId: number, qty: number): Observable<PurchaseResponse> {
-    return this.http.post<PurchaseResponse>(`${this.base}/${fixtureId}/purchase`, { qty });
+  purchase(body: PurchaseRequest): Observable<PurchaseResponse> {
+    return this.http.post<PurchaseResponse>(`${this.base}/tickets/purchase`, body);
   }
 }

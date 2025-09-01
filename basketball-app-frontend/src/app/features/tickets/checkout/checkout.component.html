@@ -1,9 +1,10 @@
-<h2>Checkout</h2>
-<p>Fixture: {{ id }}</p>
+<h1>Checkout</h1>
 
-<label>Quantity</label>
-<input type="number" min="1" [(ngModel)]="qty" />
+<div class="card">
+  <label>
+    Quantity:
+    <input type="number" min="1" [(ngModel)]="qty" />
+  </label>
 
-<div style="margin-top: 1rem">
-  <button mat-flat-button color="primary" (click)="purchase()">Pay</button>
+  <button class="btn" (click)="purchase()">Confirm purchase</button>
 </div>

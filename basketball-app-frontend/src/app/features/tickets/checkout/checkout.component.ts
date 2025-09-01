@@ -21,14 +21,13 @@ export class CheckoutComponent {
 
   ngOnInit(): void {
     const raw = this.route.snapshot.paramMap.get('id');
-    this.id = raw ? Number(raw) : 0;
+    this.id = raw ? Number(raw) : NaN;
   }
 
   purchase(): void {
-    this.api.purchase(this.id, this.qty).subscribe({
+    this.api.purchase({ fixtureId: this.id, qty: this.qty }).subscribe({
       next: (_res: PurchaseResponse) => this.router.navigate(['/tickets']),
       error: () => {}
     });
   }
 }
-

@@ -1,14 +1,11 @@
-
-<h1>Tickets</h1>
-<!-- src/app/features/tickets/ticket-list.component.html -->
 <h1>Tickets</h1>
 
-<div class="grid">
-  <article class="card" *ngFor="let f of (fixtures$ | async) ?? []">
+<div class="grid" *ngIf="(fixtures$ | async) ?? [] as fixtures">
+  <article class="card" *ngFor="let f of fixtures">
     <h3>{{ f.opponent }}</h3>
     <div class="meta">{{ f.date | date:'mediumDate' }}</div>
 
-    <a *ngIf="auth.isLoggedIn(); else loginFirst"
+    <a *ngIf="auth.isLoggedIn(); if loginFirst"
        class="btn"
        [routerLink]="['/tickets/checkout', f.id]">Buy</a>
 
