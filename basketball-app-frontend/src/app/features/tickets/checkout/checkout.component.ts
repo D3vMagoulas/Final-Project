@@ -21,7 +21,7 @@ export class CheckoutComponent {
 
   ngOnInit(): void {
     const raw = this.route.snapshot.paramMap.get('id');
-    this.id = raw ? Number(raw) : NaN;
+    this.id = raw ? Number(raw) : 0;
   }
 
   purchase(): void {
@@ -31,3 +31,4 @@ export class CheckoutComponent {
     });
   }
 }
+

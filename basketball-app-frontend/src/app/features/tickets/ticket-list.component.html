@@ -6,7 +6,7 @@
 <div class="grid">
   <article class="card" *ngFor="let f of (fixtures$ | async) ?? []">
     <h3>{{ f.opponent }}</h3>
-    <div class="meta">{{ f.date | date:'mediumDate' }} • {{ f.venue }}</div>
+    <div class="meta">{{ f.date | date:'mediumDate' }}</div>
 
     <a *ngIf="auth.isLoggedIn(); else loginFirst"
        class="btn"
