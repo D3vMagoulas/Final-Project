@@ -1,31 +1,23 @@
-/* Must be first: enable Material theming via tokens */
-@use '@angular/material' as mat;
+.page-bg {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 
-/* App theme (light) */
-@include mat.theme((
-  color: (
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette
-  ),
-  typography: Roboto,
-  density: 0
-));
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-:root { color-scheme: light; }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.35); /* overlay */
+    z-index: 0;
+  }
 
-html, body { height: 100%; }
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: #fafafa;
-  line-height: 1.4;
+  > * { position: relative; z-index: 1; }
 }
-
-/* Utility classes */
-.container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
-.text-center { text-align: center; }
-
-/* Links */
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }

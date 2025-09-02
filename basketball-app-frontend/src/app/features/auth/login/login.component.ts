@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthRequest, AuthService } from '../../../core/auth/auth.service';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs/operators';
+
+import { AuthService, AuthRequest } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,37 +19,32 @@ export class LoginComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-
-  returnUrl: string = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-
+  returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/';
   pending = false;
   error: string | null = null;
 
   form = this.fb.group({
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
+    username: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
-  constructor() {
-    const preset = this.route.snapshot.queryParamMap.get('username');
-    if (preset) this.form.patchValue({ username: preset });
-  }
-
   submit(): void {
-    if (this.form.invalid || this.pending) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     this.pending = true;
     this.error = null;
 
-    const body = this.form.getRawValue() as AuthRequest;
+    const payload = this.form.value as AuthRequest;
 
-    this.auth.login(body).subscribe({
-      next: () => this.router.navigateByUrl(this.returnUrl),
-      error: (err) => {
-        this.pending = false;
-        this.error = err?.error?.message ?? 'Login failed. Please try again.';
-      },
-    });
+    this.auth
+      .login(payload)
+      .pipe(finalize(() => (this.pending = false)))
+      .subscribe({
+        next: () => this.router.navigateByUrl(this.returnUrl),
+        error: () => (this.error = 'Invalid email or password.'),
+      });
   }
-
-  get f() { return this.form.controls; }
 }

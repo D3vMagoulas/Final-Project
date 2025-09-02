@@ -16,18 +16,14 @@ export const routes: Routes = [
       .then(c => c.CheckoutComponent),
   },
 
- {
+{
   path: 'auth/login',
-  loadComponent: () =>
-    import('././features/auth/login/login.component').then(c => c.LoginComponent),
+  loadComponent: () => import('./features/auth/login/login.component').then(c => c.LoginComponent)
 },
 {
   path: 'auth/signup',
-  loadComponent: () =>
-    import('./features/auth/signup/signup.component').then(c => c.SignupComponent),
+  loadComponent: () => import('./features/auth/signup/signup.component').then(c => c.SignupComponent)
 },
-
- 
 
   { path: '**', redirectTo: '' }
 ];
