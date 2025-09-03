@@ -18,6 +18,8 @@ import { AuthService } from '../../core/auth/auth.service';
       </nav>
       <div class="auth">
         <button *ngIf="!isAuthed()" routerLink="/login">Εγγραφή</button>
+        <button *ngIf="!isAuthed()" routerLink="/auth/login">Σύνδεση</button>
+        <button *ngIf="!isAuthed()" routerLink="/auth/signup">Εγγραφή</button>
         <button *ngIf="isAuthed()" (click)="logout()">Αποσύνδεση</button>
       </div>
     </div>
@@ -30,6 +32,7 @@ import { AuthService } from '../../core/auth/auth.service';
     nav a{margin:0 .75rem;color:#fff;text-decoration:none;opacity:.9}
     nav a.active{border-bottom:2px solid #4fc3f7}
     .auth button{background:#4fc3f7;border:0;color:#111;padding:.4rem .75rem;border-radius:6px;cursor:pointer}
+    .auth button:not(:first-child){margin-left:.5rem}
   `]
 })
 export class NavbarComponent {

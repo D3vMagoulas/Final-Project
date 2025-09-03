@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../core/auth/auth.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { AuthService } from '../core/auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
+  imports: [RouterLink],
 })
 export class HeaderComponent {
   auth = inject(AuthService);

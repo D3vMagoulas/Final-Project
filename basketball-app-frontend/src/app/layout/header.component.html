@@ -4,20 +4,13 @@
     <span class="spacer"></span>
 
     @if (auth.isLoggedIn()) {
-      <div class="user-menu" tabindex="0" (click)="toggleMenu()">
-        <span>Welcome {{ auth.userName() || 'User' }}</span>
-        <svg class="chev" width="10" height="10" viewBox="0 0 10 10">
-          <path d="M1 3 l4 4 4-4" />
-        </svg>
-
-        @if (menuOpen) {
-          <div class="menu" (mousedown)="$event.stopPropagation()">
-            <button type="button" (click)="logout(); $event.stopPropagation()">Αποσύνδεση</button>
-          </div>
-        }
+      <div class="user-menu" tabindex="0">
+        <span>Welcome {{ auth.userNameSig() || 'User' }}</span>
+        <button type="button" (click)="logout()">Sign out</button>
       </div>
     } @else {
-      <a routerLink="/auth/login">Σύνδεση</a>
+      <!-- IMPORTANT: routerLink, not href -->
+      <a routerLink="/auth/login" class="secondary">Σύνδεση</a>
       <a routerLink="/auth/signup" class="primary">Εγγραφή</a>
     }
   </nav>

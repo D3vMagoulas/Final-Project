@@ -11,7 +11,7 @@ export class AuthService {
   private storage = inject(StorageService);
 
   private isAuthedSig = signal<boolean>(!!this.storage.getToken());
-  private userNameSig = signal<string | null>(
+  public userNameSig = signal<string | null>(
     this.readNameFromToken(this.storage.getToken())
   );
 
