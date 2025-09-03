@@ -1,43 +1,72 @@
-// src/app/core/auth/auth.service.ts
-import { Injectable, inject, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { StorageService } from './storage.service';
-import { AuthRequest, AuthResponse, SignupRequest } from './auth.models';
+import { AuthRequest, SignupRequest } from './auth.models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
   private storage = inject(StorageService);
 
-  isAuthedSig = signal<boolean>(!!this.storage.getToken());
+  private isAuthedSig = signal<boolean>(!!this.storage.getToken());
+  private userNameSig = signal<string | null>(
+    this.readNameFromToken(this.storage.getToken())
+  );
+
+  private readNameFromToken(token: string | null): string | null {
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return (
+        payload.name ||
+        payload.fullName ||
+        payload.username ||
+        payload.sub ||
+        payload.email ||
+        null
+      );
+    } catch {
+      return null;
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return this.isAuthedSig();
+  }
+  userName(): string | null {
+    return this.userNameSig();
+  }
+  getToken(): string | null {
+    return this.storage.getToken();
+  }
 
   login(payload: AuthRequest) {
     return this.http
-      .post<AuthResponse>(`${environment.apiBase}${environment.auth.login}`, payload)
+      .post<{ token: string }>(
+        `${environment.apiBase}${environment.auth.login}`,
+        payload
+      )
       .pipe(
         tap(res => {
           this.storage.setToken(res.token);
           this.isAuthedSig.set(true);
+          this.userNameSig.set(this.readNameFromToken(res.token));
         })
       );
   }
 
   signup(payload: SignupRequest) {
-    return this.http.post<void>(`${environment.apiBase}${environment.auth.signup}`, payload);
+    return this.http.post<void>(
+      `${environment.apiBase}${environment.auth.signup}`,
+      payload
+    );
   }
 
   logout() {
     this.storage.clearToken();
     this.isAuthedSig.set(false);
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.storage.getToken();
-  }
-
-  getToken(): string | null {
-    return this.storage.getToken();
+    this.userNameSig.set(null);
   }
 }

@@ -1,12 +1,24 @@
-<nav class="navbar">
-  <a routerLink="/" class="nav-link">Home</a>
+<header class="app-header">
+  <nav class="nav">
+    <a routerLink="/home" class="brand">Ίκαρος Νέας Σμύρνης BC</a>
+    <span class="spacer"></span>
 
-  <ng-container *ngIf="!auth.isLoggedIn(); else loggedIn">
-    <a routerLink="/auth/login" class="nav-link">Login</a>
-    <a routerLink="/auth/signup" class="nav-link">Sign up</a>
-  </ng-container>
+    @if (auth.isLoggedIn()) {
+      <div class="user-menu" tabindex="0" (click)="toggleMenu()">
+        <span>Welcome {{ auth.userName() || 'User' }}</span>
+        <svg class="chev" width="10" height="10" viewBox="0 0 10 10">
+          <path d="M1 3 l4 4 4-4" />
+        </svg>
 
-  <ng-template #loggedIn>
-    <a (click)="logout()" class="nav-link">Logout</a>
-  </ng-template>
-</nav>
+        @if (menuOpen) {
+          <div class="menu" (mousedown)="$event.stopPropagation()">
+            <button type="button" (click)="logout(); $event.stopPropagation()">Αποσύνδεση</button>
+          </div>
+        }
+      </div>
+    } @else {
+      <a routerLink="/auth/login">Σύνδεση</a>
+      <a routerLink="/auth/signup" class="primary">Εγγραφή</a>
+    }
+  </nav>
+</header>

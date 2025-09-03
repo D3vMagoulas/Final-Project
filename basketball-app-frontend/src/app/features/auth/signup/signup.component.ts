@@ -47,8 +47,13 @@ export class SignupComponent {
       .signup(payload)
       .pipe(finalize(() => (this.pending = false)))
       .subscribe({
-        next: () => this.router.navigateByUrl(this.returnUrl),
-        error: () => (this.error = 'Could not create account. Please try again.'),
+        next: () =>
+          this.router.navigateByUrl('/auth/login', {
+            state: {
+              msg: 'Ο λογαριασμός σας δημιουργήθηκε επιτυχώς ! Συνδεθείτε για να συνεχίσετε.',
+            },
+          }),
+        error: () => (this.error = 'Αδυναμία δημιουργίας λογαρισμού , προσπαθείστε ξανά .'),
       });
   }
 }

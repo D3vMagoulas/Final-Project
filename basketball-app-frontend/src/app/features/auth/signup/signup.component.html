@@ -1,39 +1,39 @@
 <section class="page page-bg" style="background-image: url('/assets/bg/signin-signup.png')">
   <div class="card">
-    <h1>Create Account</h1>
+    <h1>Δημιουργία λογαριασμού</h1>
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="form">
       <div class="form-field">
-        <label for="name">First Name</label>
-        <input id="name" formControlName="name" type="text" placeholder="Enter your first name" />
+        <label for="name">Όνομα</label>
+        <input id="name" formControlName="name" type="text" placeholder="Εισάγετε το όνομά σας" />
       </div>
 
       <div class="form-field">
-        <label for="surname">Last Name</label>
-        <input id="surname" formControlName="surname" type="text" placeholder="Enter your last name" />
+        <label for="surname">Επίθετο</label>
+        <input id="surname" formControlName="surname" type="text" placeholder="Εισάγετε το επίθετό σας" />
       </div>
 
       <div class="form-field">
         <label for="email">Email</label>
-        <input id="email" formControlName="email" type="email" placeholder="Enter your email" />
+        <input id="email" formControlName="email" type="email" placeholder="Εισάγετε το email σας" />
       </div>
 
       <div class="form-field">
-        <label for="phone">Phone Number</label>
-        <input id="phone" formControlName="phone" type="tel" placeholder="Enter your phone number" />
+        <label for="phone">Κινητό τηλέφωνο</label>
+        <input id="phone" formControlName="phone" type="tel" placeholder="Εισάγετε το κινητό σας" />
       </div>
 
       <div class="form-field">
         <label for="password">Password</label>
-        <input id="password" formControlName="password" type="password" placeholder="Enter your password" />
+        <input id="password" formControlName="password" type="password" placeholder="Εισάγετε τον κωδικό σας" />
       </div>
 
-      <button type="submit" [disabled]="form.invalid || pending">Sign up</button>
+      <button type="submit" [disabled]="form.invalid || pending">Δημιουργία λογαριασμού</button>
     </form>
 
     <div class="footer-text">
-      Already have an account?
-      <a routerLink="/auth/login" [queryParams]="{ returnUrl: returnUrl }">Sign in</a>
+      Έχετε ήδη λογαρισμό ;
+      <a routerLink="/auth/login" [queryParams]="{ returnUrl: returnUrl }">Συνδεθείτε</a>
     </div>
   </div>
 </section>

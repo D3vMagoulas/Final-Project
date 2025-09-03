@@ -17,8 +17,8 @@ import { AuthService } from '../../core/auth/auth.service';
         <a routerLink="/tickets" routerLinkActive="active">Tickets</a>
       </nav>
       <div class="auth">
-        <button *ngIf="!isAuthed()" routerLink="/login">Sign in</button>
-        <button *ngIf="isAuthed()" (click)="logout()">Logout</button>
+        <button *ngIf="!isAuthed()" routerLink="/login">Εγγραφή</button>
+        <button *ngIf="isAuthed()" (click)="logout()">Αποσύνδεση</button>
       </div>
     </div>
   </header>

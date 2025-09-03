@@ -1,23 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
-const TOKEN_KEY = environment.storageKeys.token;
-
 @Injectable({ providedIn: 'root' })
 export class StorageService {
-  setToken(token: string): void {
-    localStorage.setItem(TOKEN_KEY, token);
-  }
+  private readonly key = environment.storageKeys.token;
 
-  getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
-  }
-
-  clearToken(): void {
-    localStorage.removeItem(TOKEN_KEY);
-  }
-
-  clearAll(): void {
-    localStorage.clear();
-  }
+  setToken(token: string) { localStorage.setItem(this.key, token); }
+  getToken(): string | null { return localStorage.getItem(this.key); }
+  clearToken() { localStorage.removeItem(this.key); }
 }
