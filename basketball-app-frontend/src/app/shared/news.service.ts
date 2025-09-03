@@ -13,7 +13,7 @@ export class NewsService {
 
   list(){ return this.list$; }
   refresh(){
-    this.http.get<NewsItem[]>(`${environment.apiUrl}/news`)
+    this.http.get<NewsItem[]>(`${environment.apiBase}/news`)
       .subscribe(v => this.store.next(v));
   }
 }

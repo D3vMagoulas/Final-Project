@@ -4,7 +4,8 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
-import { AuthService, SignupRequest } from '../../../core/auth/auth.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { SignupRequest } from '../../../core/auth/auth.models';
 
 @Component({
   selector: 'app-signup',

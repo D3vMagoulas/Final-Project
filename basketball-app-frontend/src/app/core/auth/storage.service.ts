@@ -1,23 +1,23 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+
+const TOKEN_KEY = environment.storageKeys.token;
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
-  private platformId = inject(PLATFORM_ID);
-
-  private get isBrowser() {
-    return isPlatformBrowser(this.platformId);
+  setToken(token: string): void {
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
-  getItem(key: string): string | null {
-    return this.isBrowser ? localStorage.getItem(key) : null;
+  getToken(): string | null {
+    return localStorage.getItem(TOKEN_KEY);
   }
 
-  setItem(key: string, value: string): void {
-    if (this.isBrowser) localStorage.setItem(key, value);
+  clearToken(): void {
+    localStorage.removeItem(TOKEN_KEY);
   }
 
-  removeItem(key: string): void {
-    if (this.isBrowser) localStorage.removeItem(key);
+  clearAll(): void {
+    localStorage.clear();
   }
 }

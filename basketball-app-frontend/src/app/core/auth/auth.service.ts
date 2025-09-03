@@ -1,59 +1,43 @@
-import { Injectable, inject } from '@angular/core';
+// src/app/core/auth/auth.service.ts
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { tap, map, delay } from 'rxjs/operators';
-
-export interface AuthRequest {
-  username: string;
-  password: string;
-}
-
-export interface AuthResponse {
-  token: string;
-}
-
-export interface SignupRequest {
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  password: string;
-}
+import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { StorageService } from './storage.service';
+import { AuthRequest, AuthResponse, SignupRequest } from './auth.models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private base = '/api/auth';
-  private storageKey = 'token';
+  private storage = inject(StorageService);
 
-  login(body: AuthRequest): Observable<void> {
-    return this.http.post<AuthResponse>(`${this.base}/login`, body).pipe(
-      tap(res => localStorage.setItem(this.storageKey, res.token)),
-      map(() => void 0)
-    );
+  isAuthedSig = signal<boolean>(!!this.storage.getToken());
+
+  login(payload: AuthRequest) {
+    return this.http
+      .post<AuthResponse>(`${environment.apiBase}${environment.auth.login}`, payload)
+      .pipe(
+        tap(res => {
+          this.storage.setToken(res.token);
+          this.isAuthedSig.set(true);
+        })
+      );
   }
 
-  signup(body: SignupRequest): Observable<void> {
-    return this.http.post<void>(`${this.base}/signup`, body);
+  signup(payload: SignupRequest) {
+    return this.http.post<void>(`${environment.apiBase}${environment.auth.signup}`, payload);
   }
 
-  googleLogin(): Observable<void> {
-    return of({ token: 'demo-google-jwt' }).pipe(
-      delay(600),
-      tap(res => localStorage.setItem(this.storageKey, res.token)),
-      map(() => void 0)
-    );
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.storageKey);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem(this.storageKey);
+  logout() {
+    this.storage.clearToken();
+    this.isAuthedSig.set(false);
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return !!this.storage.getToken();
+  }
+
+  getToken(): string | null {
+    return this.storage.getToken();
   }
 }

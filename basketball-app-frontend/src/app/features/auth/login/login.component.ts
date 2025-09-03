@@ -4,7 +4,8 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
-import { AuthService, AuthRequest } from '../../../core/auth/auth.service';
+import { AuthRequest } from '../../../core/auth/auth.models';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-login',

@@ -1,4 +1,9 @@
 export const environment = {
-  apiUrl: '/api',
-  googleClientId: '242716021470-2k50p8setnbc497q4gfnfiapoi7eode7.apps.googleusercontent.com'
+  production: false,
+  apiBase: 'http://localhost:8080',
+  auth: {
+    login: '/api/auth/login',
+    signup: '/api/auth/signup',
+  },
+  storageKeys: { token: 'auth_token' },
 };

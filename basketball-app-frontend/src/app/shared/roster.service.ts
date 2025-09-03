@@ -13,7 +13,7 @@ export class RosterService {
 
   list(){ return this.list$; }
   refresh(){
-    this.http.get<Player[]>(`${environment.apiUrl}/roster/players`)
+    this.http.get<Player[]>(`${environment.apiBase}/roster/players`)
       .subscribe(v => this.store.next(v));
   }
 }
