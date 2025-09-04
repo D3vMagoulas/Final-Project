@@ -25,15 +25,7 @@ import { AuthService } from '../../core/auth/auth.service';
     </div>
   </header>
   `,
-  styles: [`
-    .nav{position:sticky;top:0;z-index:10;background:#111;color:#fff}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0.75rem 1rem}
-    .logo{font-weight:700;letter-spacing:.5px;text-decoration:none;color:#fff}
-    nav a{margin:0 .75rem;color:#fff;text-decoration:none;opacity:.9}
-    nav a.active{border-bottom:2px solid #4fc3f7}
-    .auth button{background:#4fc3f7;border:0;color:#111;padding:.4rem .75rem;border-radius:6px;cursor:pointer}
-    .auth button:not(:first-child){margin-left:.5rem}
-  `]
+
 })
 export class NavbarComponent {
   private auth = inject(AuthService);
