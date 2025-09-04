@@ -12,12 +12,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/assets/hero.jpg") center / cover no-repeat;
   z-index: 0;
   pointer-events: none;
 }
 
-/* Gradient overlay */
 .hero::after {
   content: "";
   position: absolute;

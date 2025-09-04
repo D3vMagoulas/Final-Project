@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject , HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../core/auth/auth.service';
@@ -18,6 +18,14 @@ export class HeaderComponent {
 
   toggleMenu() { this.menuOpen = !this.menuOpen; }
   closeMenu()  { this.menuOpen = false; }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-menu')) {
+      this.closeMenu();
+    }
+  }
 
   logout() {
     this.auth.logout();
