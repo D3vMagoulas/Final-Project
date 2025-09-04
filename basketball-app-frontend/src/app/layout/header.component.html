@@ -6,11 +6,11 @@
     @if (auth.isLoggedIn()) {
       <div class="user-menu" tabindex="0">
         <span>Welcome {{ auth.userNameSig() || 'User' }}</span>
-        <button type="button" (click)="logout()">Sign out</button>
+        <button type="button" (click)="logout()">Αποσύνδεση</button>
       </div>
     } @else {
       <!-- IMPORTANT: routerLink, not href -->
-      <a routerLink="/auth/login" class="secondary">Σύνδεση</a>
+      <a routerLink="/auth/login" class="primary">Σύνδεση</a>
       <a routerLink="/auth/signup" class="primary">Εγγραφή</a>
     }
   </nav>
