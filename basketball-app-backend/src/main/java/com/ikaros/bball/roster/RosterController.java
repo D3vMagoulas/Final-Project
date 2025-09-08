@@ -5,6 +5,7 @@ import com.ikaros.bball.dto.roster.PlayerDto;
 import com.ikaros.bball.dto.roster.PlayerMapper;
 import com.ikaros.bball.dto.roster.PlayerUpdateDto;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,12 +31,14 @@ public class RosterController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public PlayerDto add(@Valid @RequestBody PlayerCreationDto body) {
         var saved = service.add(PlayerMapper.fromCreate(body));
         return PlayerMapper.toDto(saved);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public PlayerDto update(@PathVariable Long id, @RequestBody PlayerUpdateDto body) {
         var entity = service.byId(id);
         PlayerMapper.applyUpdate(body, entity);
@@ -43,6 +46,7 @@ public class RosterController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
