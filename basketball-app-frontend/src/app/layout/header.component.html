@@ -1,6 +1,8 @@
 <header class="app-header">
   <nav class="nav">
-    <a routerLink="/home" class="brand">Ίκαρος Νέας Σμύρνης BC</a>
+    <a routerLink="/home" class="brand">
+      <img src="/assets/bg/ikaros-nea-smyrni-logo.png" alt="Ikaros Nea Smyrni Logo" class="brand-logo" />Ίκαρος Νέας Σμύρνης BC
+    </a>
     <span class="spacer"></span>
 
     @if (auth.isLoggedIn()) {
@@ -9,7 +11,6 @@
         <button type="button" (click)="logout()">Αποσύνδεση</button>
       </div>
     } @else {
-      <!-- IMPORTANT: routerLink, not href -->
       <a routerLink="/auth/login" class="secondary">Σύνδεση</a>
       <a routerLink="/auth/signup" class="primary">Εγγραφή</a>
     }
