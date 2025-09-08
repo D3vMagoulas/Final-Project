@@ -26,6 +26,10 @@ import { AuthService } from '../../core/auth/auth.service';
   </header>
   `,
 
+  styles: [`
+    .nav { height: var(--navbar-height); display: flex; align-items: center; }
+  `],
+
 })
 export class NavbarComponent {
   private auth = inject(AuthService);
