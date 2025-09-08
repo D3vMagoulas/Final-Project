@@ -1,0 +1,16 @@
+<div *ngIf="auth.isAdmin()">
+  <h2>Roster Management</h2>
+  <button (click)="addNew()">Add Player</button>
+  <table>
+    <tr *ngFor="let p of (players$ | async)">
+      <td>{{ p.number }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.position }}</td>
+      <td>
+        <button (click)="edit(p)">Edit</button>
+        <button (click)="remove(p)">Delete</button>
+      </td>
+    </tr>
+  </table>
+  <app-player-form *ngIf="editing()" [player]="editing()" (saved)="saved()" (cancel)="cancel()"></app-player-form>
+</div>

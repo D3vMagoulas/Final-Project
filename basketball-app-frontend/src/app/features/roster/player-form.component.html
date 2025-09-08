@@ -1,0 +1,16 @@
+<form *ngIf="auth.isAdmin()" [formGroup]="form" (ngSubmit)="submit()">
+  <label>
+    Number
+    <input type="number" formControlName="number" />
+  </label>
+  <label>
+    Name
+    <input type="text" formControlName="name" />
+  </label>
+  <label>
+    Position
+    <input type="text" formControlName="position" />
+  </label>
+  <button type="submit">{{ form.value.id ? 'Update' : 'Add' }} Player</button>
+  <button type="button" (click)="cancel.emit()">Cancel</button>
+</form>

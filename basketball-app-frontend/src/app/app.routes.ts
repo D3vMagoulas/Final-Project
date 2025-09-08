@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/auth.guard';
+import { adminGuard } from './core/auth/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +19,10 @@ export const routes: Routes = [
 
   { path: 'news', canActivate: [authGuard], loadComponent: () =>
       import('./features/news/news-list.component').then(m => m.NewsListComponent) },
+
+  { path: 'roster/manage', canActivate: [adminGuard], loadComponent: () =>
+      import('./features/roster/roster-admin.component').then(m => m.RosterAdminComponent) },
+    
 
   { path: 'roster', canActivate: [authGuard], loadComponent: () =>
       import('./features/roster/roster-list.component').then(m => m.RosterListComponent) },

@@ -1,0 +1,48 @@
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RosterService, Player } from '../../shared/roster.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { PlayerFormComponent } from './player-form.component';
+
+@Component({
+  selector: 'app-roster-admin',
+  standalone: true,
+  imports: [CommonModule, PlayerFormComponent],
+  templateUrl: './roster-admin.component.html',
+  styleUrls: ['./roster-admin.component.scss'],
+})
+export class RosterAdminComponent {
+  private roster = inject(RosterService);
+  public auth = inject(AuthService);
+
+  players$ = this.roster.list();
+  editing = signal<Player | null>(null);
+
+  constructor() {
+    this.roster.refresh();
+  }
+
+  addNew() {
+    if (!this.auth.isAdmin()) return;
+    this.editing.set({ id: 0, number: 0, name: '', position: '' });
+  }
+
+  edit(player: Player) {
+    if (!this.auth.isAdmin()) return;
+    this.editing.set({ ...player });
+  }
+
+  remove(player: Player) {
+    if (!this.auth.isAdmin()) return;
+    this.roster.remove(player.id).subscribe(() => this.roster.refresh());
+  }
+
+  saved() {
+    this.editing.set(null);
+    this.roster.refresh();
+  }
+
+  cancel() {
+    this.editing.set(null);
+  }
+}

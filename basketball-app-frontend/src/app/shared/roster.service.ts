@@ -17,3 +17,18 @@ export class RosterService {
       .subscribe(v => this.store.next(v));
   }
 }
+  
+  add(player: Omit<Player, 'id'>) {
+    return this.http.post<Player>(`${environment.apiBase}/roster/players`, player);
+  }
+
+  update(player: Player) {
+    return this.http.put<Player>(
+      `${environment.apiBase}/roster/players/${player.id}`,
+      player
+    );
+  }
+
+  remove(id: number) {
+    return this.http.delete<void>(`${environment.apiBase}/roster/players/${id}`);
+  }

@@ -15,7 +15,7 @@ export class AuthService {
     this.readNameFromToken(this.storage.getToken())
   );
 
-public rolesSig = signal<string[]>(
+  public rolesSig = signal<string[]>(
     this.readRolesFromToken(this.storage.getToken())
   );
 
@@ -36,7 +36,7 @@ public rolesSig = signal<string[]>(
     }
   }
 
-    private readRolesFromToken(token: string | null): string[] {
+  private readRolesFromToken(token: string | null): string[] {
     if (!token) return [];
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
