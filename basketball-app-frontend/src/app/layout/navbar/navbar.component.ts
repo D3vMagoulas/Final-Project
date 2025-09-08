@@ -12,9 +12,9 @@ import { AuthService } from '../../core/auth/auth.service';
     <div class="nav-inner">
       <a routerLink="/" class="logo">Basketball</a>
       <nav>
-        <a routerLink="/news" routerLinkActive="active">News</a>
+        <a routerLink="/news" routerLinkActive="active">Νέα</a>
         <a routerLink="/roster" routerLinkActive="active">Roster</a>
-        <a routerLink="/tickets" routerLinkActive="active">Tickets</a>
+        <a routerLink="/tickets" routerLinkActive="active">Εισιτήρια</a>
       </nav>
       <div class="auth">
         <button *ngIf="!isAuthed()" routerLink="/login">Εγγραφή</button>
