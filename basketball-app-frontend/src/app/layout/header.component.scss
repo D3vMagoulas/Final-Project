@@ -39,6 +39,15 @@ header {
 
   a { opacity: 0.9; }
 
+  a.admin {
+    padding: 6px 12px;
+    border-radius: 10px;
+    background: #ffc022;
+    color: #0b0b0b;
+    margin-left: 40px;
+    text-decoration: none;
+  }
+  
   a.secondary {
     padding: 6px 12px;
     border-radius: 10px;
@@ -49,13 +58,14 @@ header {
   }
 
   a.primary {
-    padding: 6px 12px;
+    padding: 6px 20px;
     border-radius: 10px;
     background: #319631;
     color: #fff;
     margin-left: 8px;
     text-decoration: none;
   }
+
 }
 
 .user-menu {
