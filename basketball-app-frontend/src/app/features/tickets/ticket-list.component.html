@@ -7,12 +7,12 @@
 
     <a *ngIf="auth.isLoggedIn(); if loginFirst"
        class="btn"
-       [routerLink]="['/tickets/checkout', f.id]">Buy</a>
+       [routerLink]="['/tickets/checkout', f.id]">Αγορά</a>
 
     <ng-template #loginFirst>
       <a class="btn outline"
          routerLink="/auth/login"
-         [queryParams]="{ returnUrl: '/tickets' }">sign in to buy</a>
+         [queryParams]="{ returnUrl: '/tickets' }">Συνδεθείτε για να αγοράσετε</a>
     </ng-template>
   </article>
 </div>
