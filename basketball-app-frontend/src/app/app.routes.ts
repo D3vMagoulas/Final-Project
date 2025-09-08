@@ -5,7 +5,7 @@ import { adminGuard } from './core/auth/admin.guard';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
-  { path: 'auth/login',  loadComponent: () =>
+  { path: 'auth/login', loadComponent: () =>
       import('./features/auth/login/login.component').then(m => m.LoginComponent) },
 
   { path: 'admin/login', loadComponent: () =>
@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: 'auth/signup', loadComponent: () =>
       import('./features/auth/signup/signup.component').then(m => m.SignupComponent) },
 
-  { path: 'home',  loadComponent: () =>
+  { path: 'home', loadComponent: () =>
       import('./features/home/home.component').then(m => m.HomeComponent) },
 
   { path: 'news', canActivate: [authGuard], loadComponent: () =>
@@ -23,7 +23,6 @@ export const routes: Routes = [
   { path: 'roster/manage', canActivate: [adminGuard], loadComponent: () =>
       import('./features/roster/roster-admin.component').then(m => m.RosterAdminComponent) },
     
-
   { path: 'roster', canActivate: [authGuard], loadComponent: () =>
       import('./features/roster/roster-list.component').then(m => m.RosterListComponent) },
 
