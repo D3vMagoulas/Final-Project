@@ -15,6 +15,10 @@ export class AuthService {
     this.readNameFromToken(this.storage.getToken())
   );
 
+public rolesSig = signal<string[]>(
+    this.readRolesFromToken(this.storage.getToken())
+  );
+
   private readNameFromToken(token: string | null): string | null {
     if (!token) return null;
     try {
@@ -32,6 +36,19 @@ export class AuthService {
     }
   }
 
+    private readRolesFromToken(token: string | null): string[] {
+    if (!token) return [];
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const roles = payload.roles;
+      if (Array.isArray(roles)) return roles;
+      if (typeof roles === 'string') return [roles];
+      return [];
+    } catch {
+      return [];
+    }
+  }
+
   isLoggedIn(): boolean {
     return this.isAuthedSig();
   }
@@ -40,6 +57,10 @@ export class AuthService {
   }
   getToken(): string | null {
     return this.storage.getToken();
+  }
+
+  isAdmin(): boolean {
+    return this.rolesSig().includes('ROLE_ADMIN');
   }
 
   login(payload: AuthRequest) {
@@ -53,6 +74,7 @@ export class AuthService {
           this.storage.setToken(res.token);
           this.isAuthedSig.set(true);
           this.userNameSig.set(this.readNameFromToken(res.token));
+          this.rolesSig.set(this.readRolesFromToken(res.token));
         })
       );
   }
@@ -68,5 +90,6 @@ export class AuthService {
     this.storage.clearToken();
     this.isAuthedSig.set(false);
     this.userNameSig.set(null);
+    this.rolesSig.set([]);
   }
 }
