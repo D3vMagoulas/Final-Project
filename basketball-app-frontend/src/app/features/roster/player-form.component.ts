@@ -22,16 +22,31 @@ export class PlayerFormComponent implements OnChanges {
 
   form = this.fb.group({
     id: [0],
-    number: [0, [Validators.required]],
-    name: ['', [Validators.required]],
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
     position: ['', [Validators.required]],
+    numberOnJersey: [0, [Validators.required]],
+    heightCm: [0],
+    birthDate: [''],
+    nationality: [''],
+    active: [true],
   });
 
   ngOnChanges() {
     if (this.player) {
       this.form.patchValue(this.player);
     } else {
-      this.form.reset({ id: 0, number: 0, name: '', position: '' });
+      this.form.reset({
+        id: 0,
+        firstName: '',
+        lastName: '',
+        position: '',
+        numberOnJersey: 0,
+        heightCm: 0,
+        birthDate: '',
+        nationality: '',
+        active: true,
+      });
     }
   }
 

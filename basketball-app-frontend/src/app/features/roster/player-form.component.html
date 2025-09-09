@@ -1,15 +1,35 @@
 <form *ngIf="auth.isAdmin()" [formGroup]="form" (ngSubmit)="submit()">
   <label>
-    Number
-    <input type="number" formControlName="number" />
+    Jersey Number
+    <input type="number" formControlName="numberOnJersey" />
   </label>
   <label>
-    Name
-    <input type="text" formControlName="name" />
+    First Name
+    <input type="text" formControlName="firstName" />
+  </label>
+  <label>
+    Last Name
+    <input type="text" formControlName="lastName" />
   </label>
   <label>
     Position
     <input type="text" formControlName="position" />
+  </label>
+   <label>
+    Height (cm)
+    <input type="number" formControlName="heightCm" />
+  </label>
+  <label>
+    Birth Date
+    <input type="date" formControlName="birthDate" />
+  </label>
+  <label>
+    Nationality
+    <input type="text" formControlName="nationality" />
+  </label>
+  <label>
+    Active
+    <input type="checkbox" formControlName="active" />
   </label>
   <button type="submit">{{ form.value.id ? 'Update' : 'Add' }} Player</button>
   <button type="button" (click)="cancel.emit()">Cancel</button>

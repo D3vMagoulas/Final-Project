@@ -3,8 +3,8 @@
   <button (click)="addNew()">Add Player</button>
   <table>
     <tr *ngFor="let p of (players$ | async)">
-      <td>{{ p.number }}</td>
-      <td>{{ p.name }}</td>
+      <td>{{ p.numberOnJersey }}</td>
+      <td>{{ p.firstName }} {{ p.lastName }}</td>
       <td>{{ p.position }}</td>
       <td>
         <button (click)="edit(p)">Edit</button>

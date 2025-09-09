@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/auth/auth.guard';
 import { adminGuard } from './core/auth/admin.guard';
+import { authGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -17,14 +17,20 @@ export const routes: Routes = [
   { path: 'home', loadComponent: () =>
       import('./features/home/home.component').then(m => m.HomeComponent) },
 
-  { path: 'news', canActivate: [authGuard], loadComponent: () =>
+  { path: 'news', loadComponent: () =>
       import('./features/news/news-list.component').then(m => m.NewsListComponent) },
 
   { path: 'roster/manage', canActivate: [adminGuard], loadComponent: () =>
       import('./features/roster/roster-admin.component').then(m => m.RosterAdminComponent) },
     
-  { path: 'roster', canActivate: [authGuard], loadComponent: () =>
+  { path: 'roster', loadComponent: () =>
       import('./features/roster/roster-list.component').then(m => m.RosterListComponent) },
+
+  { path: 'tickets', canActivate: [authGuard], loadComponent: () =>
+      import('./features/tickets/tickets-list.component').then(m => m.TicketsListComponent) },
+
+  { path: 'tickets/checkout/:id', canActivate: [authGuard], loadComponent: () =>
+      import('./features/tickets/checkout/checkout.component').then(m => m.CheckoutComponent) },    
 
   { path: '**', redirectTo: '/home' }
 ];

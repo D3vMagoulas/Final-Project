@@ -24,7 +24,17 @@ export class RosterAdminComponent {
 
   addNew() {
     if (!this.auth.isAdmin()) return;
-    this.editing.set({ id: 0, number: 0, name: '', position: '' });
+   this.editing.set({
+      id: 0,
+      firstName: '',
+      lastName: '',
+      position: '',
+      numberOnJersey: 0,
+      heightCm: 0,
+      birthDate: '',
+      nationality: '',
+      active: true,
+    });
   }
 
   edit(player: Player) {
