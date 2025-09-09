@@ -29,6 +29,7 @@ export class PlayerFormComponent implements OnChanges {
     heightCm: [0],
     birthDate: [''],
     nationality: [''],
+    photoUrl: [''],
     active: [true],
   });
 
@@ -45,6 +46,7 @@ export class PlayerFormComponent implements OnChanges {
         heightCm: 0,
         birthDate: '',
         nationality: '',
+        photoUrl: '',
         active: true,
       });
     }

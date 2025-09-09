@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 
 export interface Player {
+  id: number;
   firstName: string;
   lastName: string;
   position: string;
@@ -11,7 +12,7 @@ export interface Player {
   heightCm: number;
   birthDate: string;
   nationality: string;
-  photoUrl: string;
+  photoUrl?: string;
   active: boolean;
 }
 

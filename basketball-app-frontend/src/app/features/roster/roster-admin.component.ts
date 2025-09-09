@@ -33,6 +33,7 @@ export class RosterAdminComponent {
       heightCm: 0,
       birthDate: '',
       nationality: '',
+      photoUrl: '',
       active: true,
     });
   }
