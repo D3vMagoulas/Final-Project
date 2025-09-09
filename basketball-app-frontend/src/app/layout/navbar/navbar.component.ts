@@ -20,7 +20,10 @@ import { AuthService } from '../../core/auth/auth.service';
         <button *ngIf="!isAuthed()" routerLink="/login">Εγγραφή</button>
         <button *ngIf="!isAuthed()" routerLink="/auth/login">Σύνδεση</button>
         <button *ngIf="!isAuthed()" routerLink="/auth/signup">Εγγραφή</button>
-        <button *ngIf="isAuthed()" (click)="logout()">Αποσύνδεση</button>
+        <button *ngIf="isAuthed()" (click)="logout()">
+          Αποσύνδεση
+          <img src="/assets/bg/logout.png" alt="Logout icon" class="logout-icon">
+        </button>
       </div>
     </div>
   </header>
@@ -28,8 +31,25 @@ import { AuthService } from '../../core/auth/auth.service';
 
   styles: [`
     .nav { height: var(--navbar-height); display: flex; align-items: center; }
+    .logout-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+    .logout-button:hover {
+      background-color: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
+    }
+    .logout-button .logout-icon { height: 16px; }
   `],
-
 })
 export class NavbarComponent {
   private auth = inject(AuthService);

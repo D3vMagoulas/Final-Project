@@ -8,7 +8,10 @@
     @if (auth.isLoggedIn()) {
       <div class="user-menu" tabindex="0">
         <span>Καλωσόρισες {{ auth.userNameSig() || 'User' }}</span>
-        <button type="button" (click)="logout()">Αποσύνδεση</button>
+        <button type="button" (click)="logout()">
+          Αποσύνδεση
+          <img src="/assets/bg/logout.png" alt="Logout icon" class="logout-icon">
+        </button>
       </div>
     } @else {
       <a routerLink="/auth/login" class="secondary">Σύνδεση</a>
