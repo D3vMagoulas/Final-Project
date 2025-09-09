@@ -13,7 +13,10 @@ public class PlayerService {
     public PlayerService(PlayerRepository repo){ this.repo = repo; }
 
     public List<Player> roster() {
-        return repo.findAll(Sort.by("lastName", "firstName"));
+        return repo.findAll(
+                Sort.by("position").ascending()
+                        .and(Sort.by("lastName", "firstName"))
+        );
     }
 
     public Player byId(Long id) {
