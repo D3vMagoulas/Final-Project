@@ -7,7 +7,7 @@
 
     @if (auth.isLoggedIn()) {
       <div class="user-menu" tabindex="0">
-        <span>Welcome {{ auth.userNameSig() || 'User' }}</span>
+        <span>Καλωσόρισες {{ auth.userNameSig() || 'User' }}</span>
         <button type="button" (click)="logout()">Αποσύνδεση</button>
       </div>
     } @else {

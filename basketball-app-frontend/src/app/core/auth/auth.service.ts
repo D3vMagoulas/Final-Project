@@ -19,34 +19,38 @@ export class AuthService {
     this.readRolesFromToken(this.storage.getToken())
   );
 
-  private readNameFromToken(token: string | null): string | null {
+  private parseToken(token: string | null): any | null {
     if (!token) return null;
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return (
-        payload.name ||
-        payload.fullName ||
-        payload.username ||
-        payload.sub ||
-        payload.email ||
-        null
+      const payload = token.split('.')[1];
+      const json = new TextDecoder().decode(
+        Uint8Array.from(atob(payload), c => c.charCodeAt(0))
       );
+      return JSON.parse(json);
     } catch {
       return null;
     }
   }
 
+  private readNameFromToken(token: string | null): string | null {
+    const payload = this.parseToken(token);
+    return (
+      payload?.name ||
+      payload?.fullName ||
+      payload?.username ||
+      payload?.sub ||
+      payload?.email ||
+      null
+    );
+  }
+
   private readRolesFromToken(token: string | null): string[] {
-    if (!token) return [];
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const roles = payload.roles;
-      if (Array.isArray(roles)) return roles;
-      if (typeof roles === 'string') return [roles];
-      return [];
-    } catch {
-      return [];
-    }
+    const payload = this.parseToken(token);
+    if (!payload) return [];
+    const roles = payload.roles;
+    if (Array.isArray(roles)) return roles;
+    if (typeof roles === 'string') return [roles];
+    return [];
   }
 
   isLoggedIn(): boolean {

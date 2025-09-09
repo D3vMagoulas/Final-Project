@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface Fixture {
   id: number;
   opponent: string;
-  date: string;     // or Date if you parse it
+  date: string;
   venue: string;
 }
 

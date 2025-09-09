@@ -52,7 +52,7 @@ export class LoginComponent {
       .pipe(finalize(() => (this.pending = false)))
       .subscribe({
         next: () => this.router.navigateByUrl(this.returnUrl),
-        error: () => (this.error = 'Invalid email or password.'),
+        error: () => (this.error = 'Εσφαλμένο e-mail ή κωδικός πρόσβασης.'),
       });
 
       onmessage = signal<string | null>((history.state && history.state['msg']) || null);
