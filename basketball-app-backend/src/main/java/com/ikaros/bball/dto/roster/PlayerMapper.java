@@ -14,7 +14,7 @@ public class PlayerMapper {
                 p.getHeightCm(),
                 p.getBirthDate(),
                 p.getNationality(),
-                null,
+                p.getPhotoUrl(),
                 p.getActive()
         );
     }
@@ -28,6 +28,7 @@ public class PlayerMapper {
         p.setHeightCm(d.heightCm());
         p.setBirthDate(d.birthDate());
         p.setNationality(d.nationality());
+        p.setPhotoUrl(d.photoUrl());
         p.setActive(d.active() == null || d.active());
         return p;
     }
@@ -47,6 +48,8 @@ public class PlayerMapper {
             p.setBirthDate(d.birthDate());
         if (d.nationality()!=null)
             p.setNationality(d.nationality());
+        if (d.photoUrl()!=null)
+            p.setPhotoUrl(d.photoUrl());
         if (d.active()!=null)
             p.setActive(d.active());
     }

@@ -17,6 +17,7 @@ public class Player {
     private Double heightCm;
     private LocalDate birthDate;
     private String nationality;
+    private String photoUrl;
     private Boolean active = true;
 
     public Player() {}
@@ -44,6 +45,9 @@ public class Player {
 
     public String getNationality(){return nationality;}
     public void setNationality(String v){this.nationality=v;}
+
+    public String getPhotoUrl(){return photoUrl;}
+    public void setPhotoUrl(String v){this.photoUrl=v;}
 
     public Boolean getActive(){return active;}
     public void setActive(Boolean v){this.active=v;}
