@@ -3,6 +3,7 @@ package com.ikaros.bball.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +27,22 @@ public class JwtService {
     public String generateToken(UserDetails user) {
         Date now = new Date();
         Date exp = new Date(now.getTime() + expirationMs);
-        return Jwts.builder()
+
+        var builder = Jwts.builder()
                 .setSubject(user.getUsername())
-                .claim("roles", user.getAuthorities().stream().map(a -> a.getAuthority()).toList())
+                .claim("roles", user.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority).toList())
                 .setIssuedAt(now)
                 .setExpiration(exp)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
+                .signWith(key, SignatureAlgorithm.HS256);
+
+        if (user instanceof User appUser) {
+            builder.claim("name", appUser.getName());
+        }
+
+        return builder.compact();
     }
+
 
     public String extractUsername(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build()

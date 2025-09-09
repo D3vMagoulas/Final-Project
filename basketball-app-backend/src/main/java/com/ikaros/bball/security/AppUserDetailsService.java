@@ -15,10 +15,6 @@ public class AppUserDetailsService implements UserDetailsService {
         var user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getEmail())          // login uses email
-                .password(user.getPassword())           // already BCrypt-encoded at signup
-                .roles(user.getRole().name())           // e.g. USER
-                .build();
+        return user;
     }
 }
