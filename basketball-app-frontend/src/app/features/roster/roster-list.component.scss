@@ -1,8 +1,26 @@
-:host { display: block; }
+:host {
+  display: block;
+}
+
+.position-group {
+  margin-bottom: 1.5rem;
+
+  h3 {
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+}
+
+.player-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
 
 .page__content {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 

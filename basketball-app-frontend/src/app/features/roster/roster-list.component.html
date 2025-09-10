@@ -1,9 +1,17 @@
 <section class="page page-bg" style="background-image: url('/assets/bg/roster.png')">
   <div class="page__content">
-      <div class="player-card" *ngFor="let player of players$ | async">
-       <div class="player-name">{{ player.firstName }} {{ player.lastName }}</div>
-       <div class="player-number">#{{ player.numberOnJersey }}</div>
-      <div class="player-position">{{ player.position }}</div>
+      <div
+      class="position-group"
+      *ngFor="let group of playersByPosition$ | async | keyvalue : sortByPosition"
+    >
+      <h3 class="position-title">{{ group.key }}</h3>
+      <div class="player-row">
+        <div class="player-card" *ngFor="let player of group.value">
+          <div class="player-name">{{ player.firstName }} {{ player.lastName }}</div>
+          <div class="player-number">#{{ player.numberOnJersey }}</div>
+          <div class="player-position">{{ player.position }}</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
