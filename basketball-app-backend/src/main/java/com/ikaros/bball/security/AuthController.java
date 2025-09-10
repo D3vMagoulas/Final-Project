@@ -31,10 +31,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
+    public ResponseEntity<?> login(@RequestBody AuthRequest req) {
         var tokenReq =
                 new UsernamePasswordAuthenticationToken(req.username(), req.password());
-        authManager.authenticate(tokenReq);
+        try {
+            authManager.authenticate(tokenReq);
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid email or password");
+        }
         var user = uds.loadUserByUsername(req.username());
         String token = jwt.generateToken(user);
         return ResponseEntity.ok(new AuthResponse(token));
