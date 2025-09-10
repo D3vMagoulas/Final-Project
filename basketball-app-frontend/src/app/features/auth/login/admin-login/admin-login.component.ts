@@ -52,7 +52,7 @@ export class AdminLoginComponent {
       .pipe(finalize(() => (this.pending = false)))
       .subscribe({
         next: () => this.router.navigateByUrl(this.returnUrl),
-        error: () => (this.error = 'Invalid email or password.'),
+        error: err => (this.error = err.error || 'Invalid email or password.'),
       });
 
       onmessage = signal<string | null>((history.state && history.state['msg']) || null);

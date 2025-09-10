@@ -2,6 +2,8 @@
   <div class="card">
     <div class="alert success" *ngIf="message() as m">{{ m }}</div>
     
+    <div class="alert error" *ngIf="error">{{ error }}</div>
+    
     <h1>Σύνδεση</h1>
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="form">

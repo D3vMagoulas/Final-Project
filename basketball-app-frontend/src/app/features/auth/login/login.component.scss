@@ -8,6 +8,16 @@
   font-weight: 600;
 }
 
+.alert.error {
+  margin-bottom: 1rem;
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  background: rgba(231, 76, 60, .15);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, .35);
+  font-weight: 600;
+}
+
 .page-bg {
   position: relative;
   min-height: 100dvh;
