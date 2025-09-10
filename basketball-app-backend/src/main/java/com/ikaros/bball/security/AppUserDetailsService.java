@@ -1,14 +1,16 @@
 package com.ikaros.bball.security;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    public AppUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
