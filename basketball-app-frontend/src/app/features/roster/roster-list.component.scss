@@ -44,11 +44,17 @@ page.page-bg {
   border-radius: 4px;
   text-align: center;
   font-size: 1rem;
-  min-width: 120px;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .player-name {
   font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .player-number {
