@@ -23,6 +23,7 @@ page.page-bg {
   font-size: 2.75rem;
   text-align: left;
   margin: 1rem 0;
+  color: white;
 }
 
 .player-row {
@@ -40,12 +41,14 @@ page.page-bg {
 
 .player-card {
   background: rgba(255, 255, 255, 0.8);
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 4px;
   text-align: center;
   font-size: 1rem;
   width: auto;
   height: auto;
+  min-width: 12rem;
+  min-height: 6rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
@@ -70,13 +73,14 @@ page.page-bg {
   gap: 0.25rem;
   white-space: normal;
   overflow: visible;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   text-align: left;
 }
 
 .player-name {
   font-weight: 600;
   white-space: nowrap;
+  font-size: 1.5rem;
 }
 
 .player-number {

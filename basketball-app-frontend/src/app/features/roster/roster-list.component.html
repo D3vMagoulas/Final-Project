@@ -4,7 +4,7 @@
       class="position-group"
       *ngFor="let group of playersByPosition$ | async | keyvalue : sortByPosition"
     >
-      <h3 class="position-title">{{ group.key }}</h3>
+      <h3 class="position-title">{{ positionLabel(group.key) }}</h3>
       <div class="player-row">
         <div
           class="player-card"

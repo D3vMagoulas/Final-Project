@@ -4,6 +4,13 @@ import { map } from 'rxjs';
 import { CommonModule, KeyValue } from '@angular/common';
 
 const POSITION_ORDER = ['PG', 'SG', 'SF', 'PF', 'C'];
+const POSITION_LABELS: Record<string, string> = {
+  PG: 'Point Guard',
+  SG: 'Shooting Guard',
+  SF: 'Small Forward',
+  PF: 'Power Forward',
+  C: 'Center',
+};
 const PIXELS_PER_CHAR = 12
 const CARD_HORIZONTAL_PADDING = 48;
 
@@ -39,6 +46,10 @@ export class RosterListComponent implements OnInit {
     a: KeyValue<string, Player[]>,
     b: KeyValue<string, Player[]>
   ) => POSITION_ORDER.indexOf(a.key) - POSITION_ORDER.indexOf(b.key);
+
+  positionLabel(position: string): string {
+    return POSITION_LABELS[position] ?? position;
+  }
 
   selectedPlayer: Player | null = null;
 
