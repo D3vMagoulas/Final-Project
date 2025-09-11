@@ -3,6 +3,7 @@ package com.ikaros.bball.security;
 import com.ikaros.bball.security.dto.AuthRequest;
 import com.ikaros.bball.security.dto.AuthResponse;
 import com.ikaros.bball.security.dto.SignupRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
@@ -60,6 +61,27 @@ public class AuthController {
         user.setPhone(req.phone());
         user.setPassword(passwordEncoder.encode(req.password()));
         user.setRole(Role.USER); // or whatever your default role is
+
+        userRepository.save(user);
+
+        return ResponseEntity.created(URI.create("/api/auth/login")).build();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/signup/admin")
+    public ResponseEntity<?> signupAdmin(@RequestBody SignupRequest req) {
+        if (userRepository.existsByEmail(req.email())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Email already registered");
+        }
+
+        User user = new User();
+        user.setName(req.name());
+        user.setSurname(req.surname());
+        user.setEmail(req.email());
+        user.setPhone(req.phone());
+        user.setPassword(passwordEncoder.encode(req.password()));
+        user.setRole(Role.ADMIN);
 
         userRepository.save(user);
 

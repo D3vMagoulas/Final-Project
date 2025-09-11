@@ -18,6 +18,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.net.URI;
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class NewsController {
 
     @Operation(summary = "Create news")
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<NewsDto> create(@Valid @RequestBody NewsCreationDto d) {
         News saved = service.create(d);
         return ResponseEntity
@@ -65,6 +67,7 @@ public class NewsController {
 
     @Operation(summary = "Update news")
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public NewsDto update(@PathVariable Long id, @Valid @RequestBody NewsUpdateDto d) {
         return NewsMapper.toDto(service.update(id, d));
     }
@@ -72,6 +75,7 @@ public class NewsController {
     @Operation(summary = "Delete news")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
