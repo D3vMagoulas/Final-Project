@@ -1,4 +1,4 @@
-import { Component, inject, signal} from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
@@ -19,13 +19,17 @@ export class AdminLoginComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-   message(): string | null {
-    const qp = this.route.snapshot.queryParamMap;
-    if (qp.has('registered')) return 'Ο λογαριασμός δημιουργήθηκε επιτύχως ! Παρακαλώ συνδεθείτε .';
-    if (qp.has('loggedOut')) return 'Αποσυνδεθήκατε.';
-    if (qp.has('sessionExpired')) return 'Η διάρκεια σύνδεσης ολοκληρώθηκε , συνδεθείτε εκ νέου .';
-    return null;
-  }
+  message = signal<string | null>(
+    (() => {
+      const qp = this.route.snapshot.queryParamMap;
+      if (qp.has('registered'))
+        return 'Ο λογαριασμός δημιουργήθηκε επιτύχως ! Παρακαλώ συνδεθείτε .';
+      if (qp.has('loggedOut')) return 'Αποσυνδεθήκατε.';
+      if (qp.has('sessionExpired'))
+        return 'Η διάρκεια σύνδεσης ολοκληρώθηκε , συνδεθείτε εκ νέου .';
+      return (history.state && history.state['msg']) || null;
+    })()
+  );
 
   returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/roster/manage';
   pending = false;
@@ -54,7 +58,5 @@ export class AdminLoginComponent {
         next: () => this.router.navigateByUrl(this.returnUrl),
         error: err => (this.error = err.error || 'Invalid email or password.'),
       });
-
-      onmessage = signal<string | null>((history.state && history.state['msg']) || null);
   }
 }

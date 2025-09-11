@@ -1,4 +1,7 @@
 <section class="page page-bg" style="background-image: url('/assets/bg/news.png')">
   <div class="page__content">
+    <div *ngIf="auth.isAdmin()">
+      <button class="manage-button">Manage News</button>
+    </div>
   </div>
 </section>

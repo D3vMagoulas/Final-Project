@@ -42,6 +42,13 @@ export class RosterListComponent implements OnInit {
     })
   );
 
+  selectedPlayer?: Player;
+
+  togglePlayer(player: Player) {
+    this.selectedPlayer =
+      this.selectedPlayer?.id === player.id ? undefined : player;
+  }
+
   sortByPosition = (
     a: KeyValue<string, Player[]>,
     b: KeyValue<string, Player[]>
