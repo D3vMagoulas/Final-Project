@@ -32,8 +32,7 @@ export class RosterListComponent implements OnInit {
       let maxNameLength = 0;
       const groups = players.reduce((acc, player) => {
         (acc[player.position] ||= []).push(player);
-        const fullName = `${player.firstName} ${player.lastName}`;
-        maxNameLength = Math.max(maxNameLength, fullName.length);
+         maxNameLength = Math.max(maxNameLength, player.fullName?.length || 0);
         return acc;
       }, {} as Record<string, Player[]>);
       this.cardWidth = maxNameLength * PIXELS_PER_CHAR + CARD_HORIZONTAL_PADDING;
@@ -41,13 +40,6 @@ export class RosterListComponent implements OnInit {
       return groups;
     })
   );
-
-  selectedPlayer?: Player;
-
-  togglePlayer(player: Player) {
-    this.selectedPlayer =
-      this.selectedPlayer?.id === player.id ? undefined : player;
-  }
 
   sortByPosition = (
     a: KeyValue<string, Player[]>,

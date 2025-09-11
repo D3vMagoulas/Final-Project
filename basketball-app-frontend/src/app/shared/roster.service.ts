@@ -7,6 +7,7 @@ export interface Player {
   id: number;
   firstName: string;
   lastName: string;
+  fullName?: string;
   position: string;
   numberOnJersey: number;
   heightCm: number;
@@ -29,7 +30,11 @@ export class RosterService {
   refresh() {
     this.http
       .get<Player[]>(`${environment.apiBase}/api/roster`)
-      .subscribe((v) => this.store.next(v));
+      .subscribe((v) =>
+        this.store.next(
+          v.map((p) => ({ ...p, fullName: `${p.firstName} ${p.lastName}` }))
+        )
+      );
   }
   
   add(player: Omit<Player, 'id'>) {

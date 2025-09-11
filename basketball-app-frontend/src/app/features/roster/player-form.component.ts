@@ -54,8 +54,14 @@ export class PlayerFormComponent implements OnChanges {
 
   submit() {
     if (!this.auth.isAdmin() || this.form.invalid) return;
-    const value = this.form.value as Player;
-    const request = value.id ? this.roster.update(value) : this.roster.add(value);
+    const value = this.form.value as Omit<Player, 'name'>;
+    let request;
+    if (value.id) {
+      request = this.roster.update(value);
+    } else {
+      const { id, ...payload } = value;
+      request = this.roster.add(payload);
+    }
     request.subscribe(() => this.saved.emit());
   }
 }
