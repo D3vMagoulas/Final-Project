@@ -2,6 +2,11 @@
   display: block;
 }
 
+page.page-bg {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .position-group {
   margin-bottom: 1.5rem;
   display: flex;
@@ -15,15 +20,16 @@
 }
 
 .position-title {
-  font-size: 1.75rem;
+  font-size: 2.75rem;
   text-align: left;
+  margin: 1rem 0;
 }
 
 .player-row {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  overflow-x: auto;
+  justify-content: flex-start;
 }
 
 .page__content {
@@ -34,10 +40,11 @@
 
 .player-card {
   background: rgba(255, 255, 255, 0.8);
-  padding: 0.5rem;
+  padding: 1.5rem;
   border-radius: 4px;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 1rem;
+  min-width: 120px;
 }
 
 .player-name {
