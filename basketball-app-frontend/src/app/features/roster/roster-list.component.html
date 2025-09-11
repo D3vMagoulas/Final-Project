@@ -9,8 +9,8 @@
         <div
           class="player-card"
           *ngFor="let player of group.value"
-          [style.width.px]="cardSize"
-          [style.height.px]="cardSize"
+          [style.width.px]="cardWidth"
+          [style.height.px]="cardHeight"
           (click)="toggle(player)"
           [class.expanded]="selectedPlayer === player"
         >

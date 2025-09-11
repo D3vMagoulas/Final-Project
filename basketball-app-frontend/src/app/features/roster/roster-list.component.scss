@@ -27,7 +27,7 @@ page.page-bg {
 
 .player-row {
   display: flex;
-  gap: 1rem;
+  gap: 4.5rem;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
@@ -39,14 +39,13 @@ page.page-bg {
 }
 
 .player-card {
-  $cardSize: 120px;
   background: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   border-radius: 4px;
   text-align: center;
   font-size: 1rem;
-  width: $cardSize;
-  height: $cardSize;
+  width: auto;
+  height: auto;
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
@@ -60,8 +59,8 @@ page.page-bg {
 }
 
 .player-card.expanded {
-  width: 220px;
-  height: 220px;
+  width: auto;
+  height: auto;
 }
 
 .player-details {

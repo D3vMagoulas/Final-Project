@@ -16,8 +16,9 @@ const PIXELS_PER_CHAR = 10;
 export class RosterListComponent implements OnInit {
   private roster = inject(RosterService);
 
-  cardSize = 0;
-
+  cardWidth = 0;
+  cardHeight = 0;
+  
   playersByPosition$ = this.roster.list().pipe(
     map((players) => {
       let maxNameLength = 0;
@@ -27,7 +28,8 @@ export class RosterListComponent implements OnInit {
         maxNameLength = Math.max(maxNameLength, fullName.length);
         return acc;
       }, {} as Record<string, Player[]>);
-      this.cardSize = maxNameLength * PIXELS_PER_CHAR;
+      this.cardWidth = maxNameLength * PIXELS_PER_CHAR;
+      this.cardHeight = this.cardWidth * 0.6;
       return groups;
     })
   );
