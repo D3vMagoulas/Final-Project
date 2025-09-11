@@ -4,7 +4,8 @@ import { map } from 'rxjs';
 import { CommonModule, KeyValue } from '@angular/common';
 
 const POSITION_ORDER = ['PG', 'SG', 'SF', 'PF', 'C'];
-const PIXELS_PER_CHAR = 10;
+const PIXELS_PER_CHAR = 12
+const CARD_HORIZONTAL_PADDING = 48;
 
 @Component({
   selector: 'app-roster-list',
@@ -28,7 +29,7 @@ export class RosterListComponent implements OnInit {
         maxNameLength = Math.max(maxNameLength, fullName.length);
         return acc;
       }, {} as Record<string, Player[]>);
-      this.cardWidth = maxNameLength * PIXELS_PER_CHAR;
+      this.cardWidth = maxNameLength * PIXELS_PER_CHAR + CARD_HORIZONTAL_PADDING;
       this.cardHeight = this.cardWidth * 0.6;
       return groups;
     })

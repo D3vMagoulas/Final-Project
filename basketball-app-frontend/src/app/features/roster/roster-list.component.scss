@@ -70,13 +70,13 @@ page.page-bg {
   gap: 0.25rem;
   white-space: normal;
   overflow: visible;
+  font-size: 0.875rem;
+  text-align: left;
 }
 
 .player-name {
   font-weight: 600;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .player-number {
@@ -89,11 +89,6 @@ page.page-bg {
   transform: scale(1.1);
 }
 
-.player-details {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  text-align: left;
+.player-detail .label {
+  font-weight: 700;
 }
