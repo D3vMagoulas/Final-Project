@@ -59,6 +59,20 @@ page.page-bg {
   }
 }
 
+.player-card.expanded {
+  width: 220px;
+  height: 220px;
+}
+
+.player-details {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  white-space: normal;
+  overflow: visible;
+}
+
 .player-name {
   font-weight: 600;
   overflow: hidden;
@@ -69,3 +83,18 @@ page.page-bg {
 .player-number {
   font-weight: 700;
 } 
+
+.player-card.selected {
+  width: auto;
+  height: auto;
+  transform: scale(1.1);
+}
+
+.player-details {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  text-align: left;
+}
