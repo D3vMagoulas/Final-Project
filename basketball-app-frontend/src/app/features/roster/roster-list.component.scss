@@ -39,15 +39,24 @@ page.page-bg {
 }
 
 .player-card {
+  $cardSize: 120px;
   background: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   border-radius: 4px;
   text-align: center;
   font-size: 1rem;
-  width: 120px;
-  height: 120px;
+  width: $cardSize;
+  height: $cardSize;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .player-name {
