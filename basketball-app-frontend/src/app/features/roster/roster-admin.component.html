@@ -9,7 +9,7 @@
         <tr *ngFor="let p of (players$ | async)">
           <td>{{ p.numberOnJersey }}</td>
           <td>{{ p.fullName }}</td>
-          <td>{{ p.birthDate | date }}</td>
+          <td>{{ p.birthDate | date:'dd/MM/yyyy' }}</td>
           <td>{{ p.heightCm }} cm</td>
           <td>{{ p.nationality }}</td>
           <td>{{ p.position }}</td>

@@ -36,7 +36,7 @@
               </div>
               <div class="player-detail">
                 <div class="label">Ημερομηνία γέννησης</div>
-                <div class="value">{{ player.birthDate }}</div>
+                <div class="value">{{ player.birthDate | date:'dd/MM/yyyy' }}</div>
               </div>
             </div>
           </ng-container>
