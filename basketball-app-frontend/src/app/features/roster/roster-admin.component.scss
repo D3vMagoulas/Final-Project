@@ -1,0 +1,37 @@
+:host {
+   display: block;
+ }
+
+ .page-bg {
+   justify-content: flex-start;
+   align-items: flex-start;
+ }
+
+ .page__content {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   width: 100%;
+ }
+
+ h2 {
+   margin: 0;
+   color: white;
+ }
+
+ .roster-table {
+   width: 100%;
+   border-collapse: collapse;
+
+   tr {
+     background: rgba(255, 255, 255, 0.8);
+   }
+
+   td {
+     padding: 0.5rem 1rem;
+   }
+
+   td button {
+     margin-right: 0.5rem;
+   }
+ }

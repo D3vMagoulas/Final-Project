@@ -31,7 +31,7 @@ export class AdminLoginComponent {
     })(),
   );
 
-  returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/roster/manage';
+  returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/home';
   pending = false;
   error: string | null = null;
 

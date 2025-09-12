@@ -43,7 +43,7 @@ header {
   a.admin {
     padding: 6px 12px;
     border-radius: 10px;
-    background: #ffc022;
+    background: #fec73b;
     color: #0b0b0b;
     margin-left: 60px;
     text-decoration: none;
@@ -79,17 +79,16 @@ header {
 }
 
 .signout-btn {
-  margin-left:auto;
+  margin-left: auto;
   padding: 6px 10px;
   border-radius: 10px;
   background: rgb(255, 255, 255);
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 0.5px;
   font-size: large
 } 
 
 .logout-icon {
-  height: 20px;
-  margin-left: 4px;
+  height: 30px;
 }  

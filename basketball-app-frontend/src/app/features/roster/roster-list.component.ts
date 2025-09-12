@@ -1,7 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RosterService, Player } from '../../shared/roster.service';
+import { AuthService } from '../../core/auth/auth.service';
 import { map } from 'rxjs';
 import { CommonModule, KeyValue } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 const POSITION_ORDER = ['PG', 'SG', 'SF', 'PF', 'C'];
 const POSITION_LABELS: Record<string, string> = {
@@ -17,12 +19,13 @@ const CARD_HORIZONTAL_PADDING = 48;
 @Component({
   selector: 'app-roster-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './roster-list.component.html',
   styleUrls: ['./roster-list.component.scss'],
 })
 export class RosterListComponent implements OnInit {
   private roster = inject(RosterService);
+  readonly auth = inject(AuthService);
 
   cardWidth = 0;
   cardHeight = 0;

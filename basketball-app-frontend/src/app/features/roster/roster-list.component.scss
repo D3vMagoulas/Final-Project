@@ -39,6 +39,12 @@ page.page-bg {
   gap: 1rem;
 }
 
+.manage-link {
+  align-self: flex-end;
+  color: white;
+  text-decoration: underline;
+}
+
 .player-card {
   background: rgba(255, 255, 255, 0.8);
   padding: 2rem;
