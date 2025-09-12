@@ -5,31 +5,37 @@
   class="player-form"
 >
   <label>
-    Jersey Number
+    Αριθμός φανέλας
     <input type="number" formControlName="numberOnJersey" />
   </label>
   <label>
-    First Name
+    Όνομα
     <input type="text" formControlName="firstName" />
   </label>
   <label>
-    Last Name
+    Επώνυμο
     <input type="text" formControlName="lastName" />
   </label>
   <label>
-    Position
-    <input type="text" formControlName="position" />
+    Θέση
+    <select formControlName="position">
+      <option value="Point Guard">Point Guard</option>
+      <option value="Shooting Guard">Shooting Guard</option>
+      <option value="Small Forward">Small Forward</option>
+      <option value="Power Forward">Power Forward</option>
+      <option value="Center">Center</option>
+    </select>
   </label>
    <label>
-    Height (cm)
+    Ύψος (cm)
     <input type="number" formControlName="heightCm" />
   </label>
   <label>
-    Birth Date
+    Ημερομηνία γέννησης
     <input type="date" formControlName="birthDate" />
   </label>
   <label>
-    Nationality
+    Εθνικότητα
     <input type="text" formControlName="nationality" />
   </label>
   <label>
@@ -41,9 +47,9 @@
     <input type="checkbox" formControlName="active" />
   </label>
   <div class="form-actions">
-    <button class="action-btn" type="submit">
+    <button class="action-btn save-btn" type="submit">
       {{ form.value.id ? 'Update' : 'Add' }} Player
     </button>
-    <button class="action-btn" type="button" (click)="cancel.emit()">Cancel</button>
+    <button class="action-btn cancel-btn" type="button" (click)="cancel.emit()">Cancel</button>
   </div>
 </form>

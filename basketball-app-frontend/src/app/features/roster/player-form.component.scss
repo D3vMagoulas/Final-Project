@@ -5,7 +5,8 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 40px;
+  margin: 40px auto 0;
+  align-self: center;
   width: 350px;
 }
 
