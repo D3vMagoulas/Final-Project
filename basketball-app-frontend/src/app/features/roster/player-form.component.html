@@ -1,4 +1,9 @@
-<form *ngIf="auth.isAdmin()" [formGroup]="form" (ngSubmit)="submit()">
+<form
+  *ngIf="auth.isAdmin()"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="player-form"
+>
   <label>
     Jersey Number
     <input type="number" formControlName="numberOnJersey" />
@@ -35,6 +40,10 @@
     Active
     <input type="checkbox" formControlName="active" />
   </label>
-  <button type="submit">{{ form.value.id ? 'Update' : 'Add' }} Player</button>
-  <button type="button" (click)="cancel.emit()">Cancel</button>
+  <div class="form-actions">
+    <button class="action-btn" type="submit">
+      {{ form.value.id ? 'Update' : 'Add' }} Player
+    </button>
+    <button class="action-btn" type="button" (click)="cancel.emit()">Cancel</button>
+  </div>
 </form>
