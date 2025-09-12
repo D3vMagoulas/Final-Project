@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AuthRequest } from '../../../../core/auth/auth.models';
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -11,7 +11,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
   standalone: true,
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule,],
 })
 export class AdminLoginComponent {
   private fb = inject(FormBuilder);
