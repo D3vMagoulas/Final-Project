@@ -86,9 +86,16 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5px;
-  font-size: large
-} 
+  font-size: large;
+  color: #0b0b0b;
+}
+
+.signout-btn:hover {
+  background-color: #ff0000;
+  color: #ffffff;
+}
 
 .logout-icon {
+  width: 30px;
   height: 30px;
 }  
