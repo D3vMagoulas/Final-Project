@@ -28,7 +28,7 @@ export class AdminLoginComponent {
       if (qp.has('sessionExpired'))
         return 'Η διάρκεια σύνδεσης ολοκληρώθηκε , συνδεθείτε εκ νέου .';
       return (history.state && history.state['msg']) || null;
-    })()
+    })(),
   );
 
   returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/roster/manage';
@@ -36,6 +36,7 @@ export class AdminLoginComponent {
   error: string | null = null;
 
   form = this.fb.group({
+    name: ['', [Validators.required]],
     username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
@@ -49,14 +50,15 @@ export class AdminLoginComponent {
     this.pending = true;
     this.error = null;
 
-    const payload = this.form.value as AuthRequest;
+    const { name, username, password } = this.form.value;
+    const payload: AuthRequest = { name, username, password } as AuthRequest;
 
     this.auth
       .login(payload)
       .pipe(finalize(() => (this.pending = false)))
       .subscribe({
         next: () => this.router.navigateByUrl(this.returnUrl),
-        error: err => (this.error = err.error || 'Invalid email or password.'),
+        error: (err) => (this.error = err.error || 'Invalid email or password.'),
       });
   }
 }
