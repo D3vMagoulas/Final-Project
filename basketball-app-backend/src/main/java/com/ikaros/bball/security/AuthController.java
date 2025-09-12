@@ -7,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.AuthenticationException;
@@ -19,14 +18,12 @@ import java.net.URI;
 public class AuthController {
 
     private final AuthenticationManager authManager;
-    private final UserDetailsService uds;
     private final JwtService jwt;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public AuthController(AuthenticationManager authManager, UserDetailsService uds, JwtService jwt, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public AuthController(AuthenticationManager authManager, JwtService jwt, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.authManager = authManager;
-        this.uds = uds;
         this.jwt = jwt;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
@@ -42,7 +39,18 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid email or password");
         }
-        var user = uds.loadUserByUsername(req.username());
+        var userOpt = userRepository.findByEmail(req.username());
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid email or password");
+        }
+        var user = userOpt.get();
+        if (user.getRole() == Role.ADMIN) {
+            if (req.name() == null || !req.name().equals(user.getName())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Invalid admin name");
+            }
+        }
         String token = jwt.generateToken(user);
         return ResponseEntity.ok(new AuthResponse(token));
     }
