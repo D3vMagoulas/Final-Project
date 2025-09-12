@@ -14,14 +14,45 @@
    width: 100%;
  }
 
- h2 {
-   margin: 0;
-   color: white;
- }
+h2 {
+  margin: 0;
+  color: white;
+}
 
- .roster-table {
-   width: 100%;
-   border-collapse: collapse;
+ .roster-admin-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  transition: background 0.3s;
+}
+
+.add-player-btn:hover {
+  background: green;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: yellow;
+}
+
+.delete-btn:hover {
+  background: red;
+  color: white;
+}
+
+.roster-table {
+  width: 100%;
+  border-collapse: collapse;
 
    tr {
      background: rgba(255, 255, 255, 0.8);

@@ -1,8 +1,10 @@
 <section class="page page-bg" style="background-image: url('/assets/bg/roster.png')">
   <div class="page__content">
     <div *ngIf="auth.isAdmin()">
-      <h2>Roster Management</h2>
-      <button (click)="addNew()">Add Player</button>
+      <div class="roster-admin-header">
+        <h2>Roster Management</h2>
+        <button class="action-btn add-player-btn" (click)="addNew()">Add Player</button>
+      </div>
       <table class="roster-table">
         <tr *ngFor="let p of (players$ | async)">
           <td>{{ p.numberOnJersey }}</td>
@@ -13,8 +15,8 @@
           <td>{{ p.position }}</td>
           <td>{{ p.position }}</td>
           <td>
-            <button (click)="edit(p)">Edit</button>
-            <button (click)="remove(p)">Delete</button>
+            <button class="action-btn edit-btn" (click)="edit(p)">Edit</button>
+            <button class="action-btn delete-btn" (click)="remove(p)">Delete</button>
           </td>
         </tr>
       </table>
