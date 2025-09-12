@@ -9,14 +9,15 @@
 
  .page__content {
    display: flex;
-   flex-direction: column;
-   gap: 1rem;
-   width: 100%;
- }
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin: 0.5rem;
+}
 
 h2 {
   margin: 0;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
  .roster-admin-header {
@@ -24,6 +25,7 @@ h2 {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 20px;
 }
 
 .action-btn {
@@ -35,6 +37,13 @@ h2 {
   color: black;
   transition: background 0.3s;
 }
+
+.edit-btn,
+.delete-btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+}
+
 
 .add-player-btn:hover {
   background: green;
@@ -53,16 +62,19 @@ h2 {
 .roster-table {
   width: 100%;
   border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
 
    tr {
      background: rgba(255, 255, 255, 0.8);
    }
 
    td {
-     padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
    }
 
-   td button {
-     margin-right: 0.5rem;
-   }
- }
+   td:last-child {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
