@@ -1,7 +1,6 @@
 package com.ikaros.bball.dto.news;
 
 import com.ikaros.bball.news.News;
-import java.time.Instant;
 
 public final class NewsMapper {
     private NewsMapper(){}
@@ -12,6 +11,7 @@ public final class NewsMapper {
                 n.getTitle(),
                 n.getContent(),
                 n.getImageUrl(),
+                n.getAttachmentUrls(),
                 n.getPublishedAt()
         );
     }
@@ -20,6 +20,7 @@ public final class NewsMapper {
         News n = new News();
         n.setTitle(d.title());
         n.setContent(d.content());
+        if (d.attachmentUrls() != null) n.setAttachmentUrls(d.attachmentUrls());
         if (d.publishedAt() != null) n.setPublishedAt(d.publishedAt());
         return n;
     }
@@ -28,6 +29,7 @@ public final class NewsMapper {
         if (d.title() != null)       n.setTitle(d.title());
         if (d.content() != null)     n.setContent(d.content());
         if (d.imageUrl() != null)    n.setImageUrl(d.imageUrl());
+        if (d.attachmentUrls() != null) n.setAttachmentUrls(d.attachmentUrls());
         if (d.publishedAt() != null) n.setPublishedAt(d.publishedAt());
     }
 }

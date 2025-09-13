@@ -1,8 +1,10 @@
-package com.ikaros.bball.news;
+ackage com.ikaros.bball.news;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class News {
@@ -17,6 +19,9 @@ public class News {
     private String content;
 
     private String imageUrl;
+
+    @ElementCollection
+    private List<String> attachmentUrls = new ArrayList<>();
     private Instant publishedAt = Instant.now();
 
     public News() {}
@@ -25,5 +30,6 @@ public class News {
     public String getTitle(){return title;} public void setTitle(String t){this.title=t;}
     public String getContent(){return content;} public void setContent(String c){this.content=c;}
     public String getImageUrl(){return imageUrl;} public void setImageUrl(String i){this.imageUrl=i;}
+    public List<String> getAttachmentUrls(){return attachmentUrls;} public void setAttachmentUrls(List<String> a){this.attachmentUrls=a;}
     public Instant getPublishedAt(){return publishedAt;} public void setPublishedAt(Instant p){this.publishedAt=p;}
 }

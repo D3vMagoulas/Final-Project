@@ -61,8 +61,9 @@ public class NewsController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<NewsDto> create(@Valid @RequestPart("news") NewsCreationDto d,
-                                          @RequestPart(value = "image", required = false) MultipartFile image) {
-        News saved = service.create(d, image);
+                                          @RequestPart(value = "image", required = false) MultipartFile image,
+                                          @RequestPart(value = "attachments", required = false) List<MultipartFile> attachments) {
+        News saved = service.create(d, image, attachments);
         return ResponseEntity
                 .created(URI.create("/api/news/" + saved.getId()))
                 .body(NewsMapper.toDto(saved));
@@ -73,8 +74,9 @@ public class NewsController {
     @PreAuthorize("hasRole('ADMIN')")
     public NewsDto update(@PathVariable Long id,
                           @Valid @RequestPart("news") NewsUpdateDto d,
-                          @RequestPart(value = "image", required = false) MultipartFile image) {
-        return NewsMapper.toDto(service.update(id, d, image));
+                          @RequestPart(value = "image", required = false) MultipartFile image,
+                          @RequestPart(value = "attachments", required = false) List<MultipartFile> attachments) {
+        return NewsMapper.toDto(service.update(id, d, image, attachments));
     }
 
     @Operation(summary = "Delete news")

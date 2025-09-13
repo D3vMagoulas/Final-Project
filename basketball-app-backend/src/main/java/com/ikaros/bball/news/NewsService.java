@@ -35,19 +35,25 @@ public class NewsService {
         return repo.findById(id).orElseThrow(() -> new NotFoundException("News", id));
     }
 
-    public News create(NewsCreationDto d, MultipartFile image) {
+    public News create(NewsCreationDto d, MultipartFile image, List<MultipartFile> attachments) {
         News n = NewsMapper.fromCreate(d);
         if (image != null && !image.isEmpty()) {
             n.setImageUrl(storeImage(image));
         }
+        if (attachments != null && !attachments.isEmpty()) {
+            n.setAttachmentUrls(storeAttachments(attachments));
+        }
         return repo.save(n);
     }
 
-    public News update(Long id, NewsUpdateDto d, MultipartFile image) {
+    public News update(Long id, NewsUpdateDto d, MultipartFile image, List<MultipartFile> attachments) {
         News n = byId(id);
         NewsMapper.applyUpdate(d, n);
         if (image != null && !image.isEmpty()) {
             n.setImageUrl(storeImage(image));
+        }
+        if (attachments != null && !attachments.isEmpty()) {
+            n.setAttachmentUrls(storeAttachments(attachments));
         }
         return repo.save(n);
     }
@@ -60,6 +66,26 @@ public class NewsService {
             Path destination = uploadDir.resolve(filename);
             Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
             return "/uploads/news/" + filename;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store file", e);
+        }
+    }
+
+    private List<String> storeAttachments(List<MultipartFile> files) {
+        return files.stream()
+                .filter(f -> f != null && !f.isEmpty())
+                .map(this::storeAttachment)
+                .toList();
+    }
+
+    private String storeAttachment(MultipartFile file) {
+        try {
+            String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+            Path uploadDir = Paths.get("uploads/news/attachments");
+            Files.createDirectories(uploadDir);
+            Path destination = uploadDir.resolve(filename);
+            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+            return "/uploads/news/attachments/" + filename;
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file", e);
         }
