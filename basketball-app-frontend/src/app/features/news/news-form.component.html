@@ -1,0 +1,20 @@
+<form *ngIf="news" (ngSubmit)="submit()">
+  <label>
+    Title
+    <input [(ngModel)]="news.title" name="title" />
+  </label>
+  <label>
+    Content
+    <textarea [(ngModel)]="news.content" name="content"></textarea>
+  </label>
+  <label>
+    Image URL
+    <input [(ngModel)]="news.imageUrl" name="imageUrl" />
+  </label>
+  <label>
+    Published At
+    <input [(ngModel)]="news.publishedAt" name="publishedAt" />
+  </label>
+  <button type="submit">Save</button>
+  <button type="button" (click)="cancel.emit()">Cancel</button>
+</form>
