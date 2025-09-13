@@ -3,3 +3,24 @@ form {
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  transition: background 0.3s;
+  margin-right: 20px;
+}
+
+.save-btn:hover {
+  background: green;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: red;
+  color: white;
+}

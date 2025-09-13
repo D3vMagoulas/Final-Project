@@ -1,15 +1,26 @@
-<app-news-form
-  *ngIf="editing(); else list"
-  [news]="editing()"
-  (saved)="saved()"
-  (cancel)="cancel()"
-></app-news-form>
-
-<ng-template #list>
-  <button (click)="addNew()" *ngIf="auth.isAdmin()">Add News</button>
-  <div *ngFor="let item of news$ | async">
-    <h3>{{ item.title }}</h3>
-    <button (click)="edit(item)" *ngIf="auth.isAdmin()">Edit</button>
-    <button (click)="remove(item)" *ngIf="auth.isAdmin()">Delete</button>
+<section class="page page-bg" style="background-image: url('/assets/bg/news.png')">
+  <div class="page__content">
+    <div *ngIf="auth.isAdmin()">
+      <div class="news-admin-header">
+        <h2>News Management</h2>
+        <button class="action-btn add-news-btn" (click)="addNew()">Add News</button>
+      </div>
+      <table class="news-table">
+        <tr *ngFor="let n of (news$ | async)">
+          <td>{{ n.title }}</td>
+          <td>{{ n.publishedAt | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button class="action-btn edit-btn" (click)="edit(n)">Edit</button>
+            <button class="action-btn delete-btn" (click)="remove(n)">Delete</button>
+          </td>
+        </tr>
+      </table>
+      <app-news-form
+        *ngIf="editing()"
+        [news]="editing()"
+        (saved)="saved()"
+        (cancel)="cancel()"
+      ></app-news-form>
+    </div>
   </div>
-</ng-template>
+</section>

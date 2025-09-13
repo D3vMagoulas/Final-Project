@@ -1,12 +1,12 @@
 <section class="page page-bg" style="background-image: url('/assets/bg/news.png')">
   <div class="page__content">
-    <button
+    <a
       *ngIf="auth.isAdmin()"
       routerLink="/news/manage"
       class="manage-link"
     >
       Manage News
-    </button>
+    </a>
 
     <div class="news-item" *ngFor="let item of news">
       <img
