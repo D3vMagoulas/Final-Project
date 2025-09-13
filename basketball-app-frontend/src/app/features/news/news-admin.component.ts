@@ -49,14 +49,14 @@ export class NewsAdminComponent {
       });
   }
 
-  saved(data: { news: NewsItem; image?: File }) {
+  saved(formData: FormData) {
     let op: Observable<unknown>;
-    const { news, image } = data;
-    if (news.id) {
-      op = this.newsService.update(news, image);
+    const id = formData.get('id') as string | null;
+    if (id) {
+      op = this.newsService.update(+id, formData);
     } else {
-      const { id, ...payload } = news as any;
-      op = this.newsService.add(payload, image);
+      op = this.newsService.add(formData);
+
       
     }
     op.subscribe({

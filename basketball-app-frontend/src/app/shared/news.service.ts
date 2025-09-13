@@ -8,6 +8,7 @@ export interface NewsItem {
   title: string;
   content: string;
   imageUrl?: string;
+  attachmentUrls?: string[];
   publishedAt?: string | null;
 }
 
@@ -24,7 +25,21 @@ export class NewsService {
   refresh() {
     this.http
       .get<NewsItem[]>(`${environment.apiBase}/api/news/latest`)
-      .subscribe((v) => this.store.next(v));
+      .subscribe((items) => {
+        items.forEach((item) => {
+          if (item.imageUrl) {
+            item.imageUrl = `${environment.apiBase}${item.imageUrl}`;
+          }
+
+          if (item.attachmentUrls?.length) {
+            item.attachmentUrls = item.attachmentUrls.map(
+              (url) => `${environment.apiBase}${url}`
+            );
+          }
+        });
+
+        this.store.next(items);
+      });
   }
 
   add(formData: FormData) {

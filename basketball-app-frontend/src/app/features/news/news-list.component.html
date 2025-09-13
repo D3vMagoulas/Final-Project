@@ -11,9 +11,9 @@
     <div class="news-item" *ngFor="let item of news">
       <img
         *ngIf="item.imageUrl"
+        class="news-image"
         [src]="item.imageUrl"
         [alt]="item.title"
-        class="news-image"
       />
       <h3 class="news-title">{{ item.title }}</h3>
       <p class="news-content">{{ item.content }}</p>

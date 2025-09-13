@@ -64,23 +64,31 @@ export class NewsFormComponent implements OnChanges {
   submit() {
     if (this.form.valid) {
       const formData = new FormData();
-      formData.append('title', this.form.get('title')!.value);
-      formData.append('content', this.form.get('content')!.value);
+
+      const news = {
+        title: this.form.get('title')!.value,
+        content: this.form.get('content')!.value,
+        publishedAt: this.form.get('publishedAt')!.value,
+      };
+      formData.append(
+        'news',
+        new Blob([JSON.stringify(news)], { type: 'application/json' })
+      );
+
       const imageFile = this.form.get('image')!.value;
       if (imageFile) {
         formData.append('image', imageFile);
       }
+
       const attachments = this.form.get('attachments')!.value as File[];
       if (attachments && attachments.length) {
         attachments.forEach((file) => formData.append('attachments', file));
       }
-      const publishedAt = this.form.get('publishedAt')!.value;
-      if (publishedAt) {
-        formData.append('publishedAt', publishedAt);
-      }
+
       if (this.news?.id) {
         formData.append('id', this.news.id.toString());
       }
+
       this.saved.emit(formData);
     }
   }
