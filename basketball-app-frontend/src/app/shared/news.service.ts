@@ -8,7 +8,7 @@ export interface NewsItem {
   title: string;
   content: string;
   imageUrl: string;
-  publishedAt: string;
+   publishedAt?: string | null;
 }
 
 @Injectable({providedIn: 'root' })

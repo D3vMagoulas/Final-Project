@@ -22,7 +22,7 @@ export class NewsFormComponent implements OnChanges {
       title: ['', Validators.required],
       content: ['', Validators.required],
       imageUrl: [''],
-      publishedAt: [''],
+      publishedAt: [null],
     });
   }
 
@@ -38,7 +38,11 @@ export class NewsFormComponent implements OnChanges {
 
   submit() {
     if (this.form.valid) {
-      this.saved.emit({ ...this.news, ...this.form.value });
+      const payload = { ...this.news, ...this.form.value } as any;
+      if (!payload.publishedAt) {
+        delete payload.publishedAt;
+      }
+      this.saved.emit(payload);
     }
   }
 }

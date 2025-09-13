@@ -30,7 +30,7 @@ export class NewsAdminComponent {
 
   addNew() {
     if (!this.auth.isAdmin()) return;
-    this.editing.set({ id: 0, title: '', content: '', imageUrl: '', publishedAt: '' });
+    this.editing.set({ id: 0, title: '', content: '', imageUrl: '', publishedAt: null });
   }
 
   edit(news: NewsItem) {
