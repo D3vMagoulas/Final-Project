@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()" class="player-form">
   <label>
     Title
     <input formControlName="title" />
@@ -21,6 +21,10 @@
     Published At
     <input formControlName="publishedAt" />
   </label>
-  <button class="action-btn save-btn" type="submit">Save</button>
-  <button class="action-btn cancel-btn" type="button" (click)="cancel.emit()">Cancel</button>
+  <div class="form-actions">
+    <button class="action-btn save-btn" type="submit">Save</button>
+    <button class="action-btn cancel-btn" type="button" (click)="cancel.emit()">
+      Cancel
+    </button>
+  </div>
 </form>

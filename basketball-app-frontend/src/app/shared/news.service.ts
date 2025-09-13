@@ -28,12 +28,12 @@ export class NewsService {
       .subscribe((items) => {
         items.forEach((item) => {
           if (item.imageUrl) {
-            item.imageUrl = `${environment.apiBase}${item.imageUrl}`;
+            item.imageUrl = new URL(item.imageUrl, environment.apiBase).toString();
           }
 
           if (item.attachmentUrls?.length) {
             item.attachmentUrls = item.attachmentUrls.map(
-              (url) => `${environment.apiBase}${url}`
+              (url) => new URL(url, environment.apiBase).toString()
             );
           }
         });
