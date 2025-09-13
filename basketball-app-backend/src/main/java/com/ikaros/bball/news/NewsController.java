@@ -16,8 +16,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import java.net.URI;
 import java.util.List;
@@ -56,20 +58,23 @@ public class NewsController {
     }
 
     @Operation(summary = "Create news")
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<NewsDto> create(@Valid @RequestBody NewsCreationDto d) {
-        News saved = service.create(d);
+    public ResponseEntity<NewsDto> create(@Valid @RequestPart("news") NewsCreationDto d,
+                                          @RequestPart(value = "image", required = false) MultipartFile image) {
+        News saved = service.create(d, image);
         return ResponseEntity
                 .created(URI.create("/api/news/" + saved.getId()))
                 .body(NewsMapper.toDto(saved));
     }
 
     @Operation(summary = "Update news")
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    public NewsDto update(@PathVariable Long id, @Valid @RequestBody NewsUpdateDto d) {
-        return NewsMapper.toDto(service.update(id, d));
+    public NewsDto update(@PathVariable Long id,
+                          @Valid @RequestPart("news") NewsUpdateDto d,
+                          @RequestPart(value = "image", required = false) MultipartFile image) {
+        return NewsMapper.toDto(service.update(id, d, image));
     }
 
     @Operation(summary = "Delete news")
@@ -80,4 +85,3 @@ public class NewsController {
         service.delete(id);
     }
 }
-

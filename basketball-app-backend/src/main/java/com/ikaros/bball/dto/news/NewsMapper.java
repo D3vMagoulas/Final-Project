@@ -20,8 +20,7 @@ public final class NewsMapper {
         News n = new News();
         n.setTitle(d.title());
         n.setContent(d.content());
-        n.setImageUrl(d.imageUrl());
-        n.setPublishedAt(d.publishedAt());
+        if (d.publishedAt() != null) n.setPublishedAt(d.publishedAt());
         return n;
     }
 

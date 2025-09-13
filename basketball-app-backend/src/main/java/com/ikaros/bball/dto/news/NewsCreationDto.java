@@ -6,6 +6,5 @@ import java.time.Instant;
 public record NewsCreationDto(
         @NotBlank String title,
         @NotBlank String content,
-        String imageUrl,
         Instant publishedAt   // optional; if null we'll set now()
 ) {}
