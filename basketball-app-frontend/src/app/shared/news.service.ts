@@ -27,23 +27,13 @@ export class NewsService {
       .subscribe((v) => this.store.next(v));
   }
 
-  add(news: Omit<NewsItem, 'id' | 'imageUrl'>, image?: File) {
-    const formData = new FormData();
-    formData.append('news', new Blob([JSON.stringify(news)], { type: 'application/json' }));
-    if (image) {
-      formData.append('image', image);
-    }
+  add(formData: FormData) {
     return this.http.post<NewsItem>(`${environment.apiBase}/api/news`, formData);
   }
 
-  update(news: NewsItem, image?: File) {
-    const formData = new FormData();
-    formData.append('news', new Blob([JSON.stringify(news)], { type: 'application/json' }));
-    if (image) {
-      formData.append('image', image);
-    }
+  update(id: number, formData: FormData) {
     return this.http.put<NewsItem>(
-      `${environment.apiBase}/api/news/${news.id}`,
+      `${environment.apiBase}/api/news/${id}`,
       formData
     );
   }

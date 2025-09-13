@@ -30,7 +30,7 @@ export class NewsAdminComponent {
 
   addNew() {
     if (!this.auth.isAdmin()) return;
-    this.editing.set({ id: 0, title: '', content: '', imageUrl: '', publishedAt: null });
+    this.editing.set({ id: 0, title: '', content: '', publishedAt: null });
   }
 
   edit(news: NewsItem) {
@@ -49,13 +49,14 @@ export class NewsAdminComponent {
       });
   }
 
-  saved(formData: FormData) {
+  saved(data: { news: NewsItem; image?: File }) {
     let op: Observable<unknown>;
-    const id = formData.get('id');
-    if (id) {
-      op = this.newsService.update(+id, formData);
+    const { news, image } = data;
+    if (news.id) {
+      op = this.newsService.update(news, image);
     } else {
-      op = this.newsService.add(formData);
+      const { id, ...payload } = news as any;
+      op = this.newsService.add(payload, image);
       
     }
     op.subscribe({

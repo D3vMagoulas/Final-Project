@@ -22,6 +22,7 @@ export class NewsFormComponent implements OnChanges {
       title: ['', Validators.required],
       content: ['', Validators.required],
       image: [null],
+      attachments: [[]],
       publishedAt: [null],
     });
   }
@@ -30,8 +31,8 @@ export class NewsFormComponent implements OnChanges {
     if (changes['news']) {
       if (this.news) {
         const { title, content, publishedAt } = this.news;
-        this.form.patchValue({ title, content, publishedAt });
-        this.previewUrl = this.news.imageUrl;
+        this.form.patchValue({ title, content, publishedAt, image: null, attachments: [] });
+        this.previewUrl = this.news.imageUrl ?? null;
       } else {
         this.form.reset();
         this.previewUrl = null;
@@ -41,7 +42,7 @@ export class NewsFormComponent implements OnChanges {
 
   previewUrl: string | ArrayBuffer | null = null;
 
-  onFileSelected(event: Event) {
+  onImageSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       const file = input.files[0];
@@ -49,6 +50,14 @@ export class NewsFormComponent implements OnChanges {
       const reader = new FileReader();
       reader.onload = () => (this.previewUrl = reader.result);
       reader.readAsDataURL(file);
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const files = Array.from(input.files);
+      this.form.patchValue({ attachments: files });
     }
   }
 
@@ -60,6 +69,10 @@ export class NewsFormComponent implements OnChanges {
       const imageFile = this.form.get('image')!.value;
       if (imageFile) {
         formData.append('image', imageFile);
+      }
+      const attachments = this.form.get('attachments')!.value as File[];
+      if (attachments && attachments.length) {
+        attachments.forEach((file) => formData.append('attachments', file));
       }
       const publishedAt = this.form.get('publishedAt')!.value;
       if (publishedAt) {
