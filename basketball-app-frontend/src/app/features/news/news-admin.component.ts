@@ -49,13 +49,14 @@ export class NewsAdminComponent {
       });
   }
 
-  saved(news: NewsItem) {
+  saved(formData: FormData) {
     let op: Observable<unknown>;
-    if (news.id) {
-      op = this.newsService.update(news);
+    const id = formData.get('id');
+    if (id) {
+      op = this.newsService.update(+id, formData);
     } else {
-      const { id, ...payload } = news;
-      op = this.newsService.add(payload);
+      op = this.newsService.add(formData);
+      
     }
     op.subscribe({
       next: () => {

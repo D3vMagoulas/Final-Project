@@ -12,7 +12,7 @@ import { NewsItem } from '../../shared/news.service';
 })
 export class NewsFormComponent implements OnChanges {
   @Input() news: NewsItem | null = null;
-  @Output() saved = new EventEmitter<NewsItem>();
+  @Output() saved = new EventEmitter<FormData>();
   @Output() cancel = new EventEmitter<void>();
 
   form: FormGroup;
@@ -21,7 +21,7 @@ export class NewsFormComponent implements OnChanges {
     this.form = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
-      imageUrl: [''],
+      image: [null],
       publishedAt: [null],
     });
   }
@@ -29,20 +29,46 @@ export class NewsFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['news']) {
       if (this.news) {
-        this.form.patchValue(this.news);
+        const { title, content, publishedAt } = this.news;
+        this.form.patchValue({ title, content, publishedAt });
+        this.previewUrl = this.news.imageUrl;
       } else {
         this.form.reset();
+        this.previewUrl = null;
       }
+    }
+  }
+
+  previewUrl: string | ArrayBuffer | null = null;
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      this.form.patchValue({ image: file });
+      const reader = new FileReader();
+      reader.onload = () => (this.previewUrl = reader.result);
+      reader.readAsDataURL(file);
     }
   }
 
   submit() {
     if (this.form.valid) {
-      const payload = { ...this.news, ...this.form.value } as any;
-      if (!payload.publishedAt) {
-        delete payload.publishedAt;
+      const formData = new FormData();
+      formData.append('title', this.form.get('title')!.value);
+      formData.append('content', this.form.get('content')!.value);
+      const imageFile = this.form.get('image')!.value;
+      if (imageFile) {
+        formData.append('image', imageFile);
       }
-      this.saved.emit(payload);
+      const publishedAt = this.form.get('publishedAt')!.value;
+      if (publishedAt) {
+        formData.append('publishedAt', publishedAt);
+      }
+      if (this.news?.id) {
+        formData.append('id', this.news.id.toString());
+      }
+      this.saved.emit(formData);
     }
   }
 }
