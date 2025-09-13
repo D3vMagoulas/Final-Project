@@ -1,19 +1,19 @@
-<form *ngIf="news" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <label>
     Title
-    <input [(ngModel)]="news.title" name="title" />
+    <input formControlName="title" />
   </label>
   <label>
     Content
-    <textarea [(ngModel)]="news.content" name="content"></textarea>
+    <textarea formControlName="content"></textarea>
   </label>
   <label>
     Image URL
-    <input [(ngModel)]="news.imageUrl" name="imageUrl" />
+    <input formControlName="imageUrl" />
   </label>
   <label>
     Published At
-    <input [(ngModel)]="news.publishedAt" name="publishedAt" />
+    <input formControlName="publishedAt" />
   </label>
   <button type="submit">Save</button>
   <button type="button" (click)="cancel.emit()">Cancel</button>
