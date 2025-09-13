@@ -20,6 +20,9 @@ export const routes: Routes = [
   { path: 'news', loadComponent: () =>
       import('./features/news/news-list.component').then(m => m.NewsListComponent) },
 
+  { path: 'news/manage', canActivate: [adminGuard], loadComponent: () =>
+      import('./features/news/news-admin.component').then(m => m.NewsAdminComponent) },    
+
   { path: 'roster/manage', canActivate: [adminGuard], loadComponent: () =>
       import('./features/roster/roster-admin.component').then(m => m.RosterAdminComponent) },
     
