@@ -1,0 +1,15 @@
+<app-news-form
+  *ngIf="editing(); else list"
+  [news]="editing()"
+  (saved)="saved()"
+  (cancel)="cancel()"
+></app-news-form>
+
+<ng-template #list>
+  <button (click)="addNew()" *ngIf="auth.isAdmin()">Add News</button>
+  <div *ngFor="let item of news$ | async">
+    <h3>{{ item.title }}</h3>
+    <button (click)="edit(item)" *ngIf="auth.isAdmin()">Edit</button>
+    <button (click)="remove(item)" *ngIf="auth.isAdmin()">Delete</button>
+  </div>
+</ng-template>

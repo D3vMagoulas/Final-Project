@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '../../core/auth/auth.service';
 import { NewsService, NewsItem } from '../../shared/news.service';
-import { NewsFormComponent } from './news-form.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-news-admin',
   standalone: true,
-  imports: [CommonModule, NewsFormComponent, MatDialogModule],
+  imports: [CommonModule, MatDialogModule],
   templateUrl: './news-admin.component.html',
   styleUrls: ['./news-admin.component.scss']
 })

@@ -6,7 +6,7 @@ import { BehaviorSubject, map } from 'rxjs';
 export interface NewsItem {
   id: number;
   title: string;
-  summary: string;
+  content: string;
   imageUrl: string;
   publishedAt: string;
 }
