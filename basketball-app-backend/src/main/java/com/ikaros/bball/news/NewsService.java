@@ -7,7 +7,6 @@ import com.ikaros.bball.exception.NotFoundException;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -34,7 +33,6 @@ public class NewsService {
 
     public News create(NewsCreationDto d) {
         News n = NewsMapper.fromCreate(d);
-        if (n.getPublishedAt() == null) n.setPublishedAt(Instant.now());
         return repo.save(n);
     }
 
@@ -49,4 +47,3 @@ public class NewsService {
         repo.deleteById(id);
     }
 }
-

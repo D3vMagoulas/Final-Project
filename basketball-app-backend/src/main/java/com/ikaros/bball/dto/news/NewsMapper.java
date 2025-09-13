@@ -21,7 +21,7 @@ public final class NewsMapper {
         n.setTitle(d.title());
         n.setContent(d.content());
         n.setImageUrl(d.imageUrl());
-        n.setPublishedAt(d.publishedAt() != null ? d.publishedAt() : Instant.now());
+        n.setPublishedAt(d.publishedAt());
         return n;
     }
 
@@ -32,4 +32,3 @@ public final class NewsMapper {
         if (d.publishedAt() != null) n.setPublishedAt(d.publishedAt());
     }
 }
-
