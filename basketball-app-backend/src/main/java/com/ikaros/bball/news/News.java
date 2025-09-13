@@ -1,4 +1,4 @@
-ackage com.ikaros.bball.news;
+package com.ikaros.bball.news;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
