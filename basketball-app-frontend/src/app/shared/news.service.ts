@@ -12,6 +12,10 @@ export interface NewsItem {
   publishedAt?: string | null;
 }
 
+interface Page<T> {
+  content: T[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class NewsService {
   private http = inject(HttpClient);
@@ -26,12 +30,14 @@ export class NewsService {
     const size = 50;
     const all: NewsItem[] = [];
 
-    const load = (page: number) => {
+    const load = (pageNumber: number) => {
       this.http
-        .get<NewsItem[]>(`${environment.apiBase}/api/news`, {
-          params: { page, size },
+        .get<Page<NewsItem>>(`${environment.apiBase}/api/news`, {
+          params: { page: pageNumber, size },
         })
-        .subscribe((items) => {
+        .subscribe((page) => {
+          const items = page.content;
+
           items.forEach((item) => {
             if (item.imageUrl) {
               item.imageUrl = new URL(item.imageUrl, environment.apiBase).toString();
@@ -47,7 +53,7 @@ export class NewsService {
           all.push(...items);
 
           if (items.length === size) {
-            load(page + 1);
+            load(pageNumber + 1);
           } else {
             this.store.next(all);
           }
