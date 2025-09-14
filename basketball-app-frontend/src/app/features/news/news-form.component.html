@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="player-form">
+  <label>
+    Title
+    <input formControlName="title" />
+  </label>
+  <label>
+    Content
+    <textarea formControlName="content"></textarea>
+  </label>
+  <label>
+    Image
+    <input #fileInput type="file" (change)="onImageSelected($event)" hidden />
+    <button type="button" (click)="fileInput.click()">Choose Image</button>
+  </label>
+  <img *ngIf="previewUrl" [src]="previewUrl" alt="Image preview" />
+  <label>
+    Attachments
+    <input type="file" (change)="onFileSelected($event)" multiple />
+  </label>
+  <label>
+    Published At
+    <input formControlName="publishedAt" />
+  </label>
+  <div class="form-actions">
+    <button class="action-btn save-btn" type="submit">Save</button>
+    <button class="action-btn cancel-btn" type="button" (click)="cancel.emit()">
+      Cancel
+    </button>
+  </div>
+</form>

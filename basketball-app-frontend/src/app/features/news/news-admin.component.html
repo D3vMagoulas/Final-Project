@@ -1,0 +1,26 @@
+<section class="page page-bg" style="background-image: url('/assets/bg/news.png')">
+  <div class="page__content">
+    <div *ngIf="auth.isAdmin()">
+      <div class="news-admin-header">
+        <h2>Διαχείριση Ανακοινώσεων</h2>
+        <button class="action-btn add-news-btn" (click)="addNew()">Προσθήκη Ανακοίνωσης</button>
+      </div>
+      <table class="news-table">
+        <tr *ngFor="let n of (news$ | async)">
+          <td>{{ n.title }}</td>
+          <td>{{ n.publishedAt | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button class="action-btn edit-btn" (click)="edit(n)">Edit</button>
+            <button class="action-btn delete-btn" (click)="remove(n)">Delete</button>
+          </td>
+        </tr>
+      </table>
+      <app-news-form
+        *ngIf="editing()"
+        [news]="editing()"
+        (saved)="saved($event)"
+        (cancel)="cancel()"
+      ></app-news-form>
+    </div>
+  </div>
+</section>

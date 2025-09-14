@@ -1,0 +1,22 @@
+<section class="page page-bg" style="background-image: url('/assets/bg/tickets.jpg')">
+  <div class="page__content">
+    <div class="form">
+      <label for="fullName">Πλήρες Όνομα:</label>
+      <input id="fullName" type="text" [(ngModel)]="fullName" />
+
+      <label for="qty">Ποσότητα:</label>
+      <input id="qty" type="number" min="1" [(ngModel)]="qty" />
+
+      <button class="btn" (click)="purchase()">Επιβεβαίωση Αγοράς</button>
+    </div>
+
+    <ng-container *ngIf="fixture$ | async as fixture">
+      <article class="card">
+        <h3>{{ fixture.opponent }}</h3>
+        <div class="meta">
+          {{ fixture.tipoff | date:'mediumDate' }} {{ fixture.tipoff | date:'shortTime' }}
+        </div>
+      </article>
+    </ng-container>
+  </div>
+</section>

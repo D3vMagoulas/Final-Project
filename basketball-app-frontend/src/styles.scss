@@ -1,0 +1,45 @@
+:root {
+  --navbar-height: 60px;
+  --footer-height: 60px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: #e2e1e17a;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body { overflow-x: hidden; }
+
+app-root { display: block; min-height: 100%; }
+
+.page-bg {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 0;
+  }
+
+  > * { position: relative; z-index: 1; }
+}

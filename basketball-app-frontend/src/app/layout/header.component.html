@@ -1,0 +1,26 @@
+<header class="app-header">
+  <nav class="nav navbar navbar-dark bg-dark">
+    <app-hamburger-menu class="app-hamburger-menu"></app-hamburger-menu>
+    <a routerLink="/home" class="brand">
+      <img src="/assets/bg/ikaros-nea-smyrni-logo.png" alt="Ikaros Nea Smyrni Logo" class="brand-logo" />Ίκαρος Νέας Σμύρνης BC
+    </a>
+    @if (auth.isLoggedIn()) {
+      <div class="welcome-box">Καλωσόρισες {{ auth.userNameSig() || 'User' }}</div>
+    }
+    <span class="spacer"></span>
+
+    @if (auth.isLoggedIn()) {
+      <button class="signout-btn" type="button" (click)="logout()">
+         Αποσύνδεση
+        <svg class="logout-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="2">
+          <line x1="12" y1="4" x2="12" y2="12" />
+          <path d="M8 6a6 6 0 1 0 8 0" />
+        </svg>
+      </button>
+    } @else {
+      <a routerLink="/auth/login" class="secondary">Σύνδεση</a>
+      <a routerLink="/auth/signup" class="primary">Εγγραφή</a>
+      <a routerLink="/admin/login" class="admin">Διαχειριστής</a>
+    }
+  </nav>
+</header>

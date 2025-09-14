@@ -1,0 +1,27 @@
+<section class="page page-bg" style="background-image: url('/assets/bg/tickets.jpg')">
+  <div class="page__content">
+    <p class="ticket-info" *ngIf="auth.isLoggedIn(); else guest">
+      Γενική είσοδος στους αγώνες 3 ευρώ
+    </p>
+    <ng-template #guest>
+      <p class="ticket-info">Γενική είσοδος στους αγώνες 5 ευρώ</p>
+    </ng-template>
+
+    <div class="grid" *ngIf="(fixtures$ | async) ?? [] as fixtures">
+      <article class="card" *ngFor="let f of fixtures">
+        <h3>{{ f.opponent }}</h3>
+        <div class="meta">{{ f.tipoff | date:'mediumDate' }} {{ f.tipoff | date:'shortTime' }}</div>
+
+        <a *ngIf="auth.isLoggedIn(); else loginFirst" class="btn" [routerLink]="['/tickets/checkout', f.id]"
+          >Αγορά</a
+        >
+
+        <ng-template #loginFirst>
+          <a class="btn outline" routerLink="/auth/login" [queryParams]="{ returnUrl: '/tickets' }"
+            >Συνδεθείτε για να αγοράσετε</a
+          >
+        </ng-template>
+      </article>
+    </div>
+  </div>
+</section>

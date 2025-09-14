@@ -1,0 +1,13 @@
+package com.ikaros.bball.dto.news;
+
+import java.time.Instant;
+import java.util.List;
+
+public record NewsDto(
+        Long id,
+        String title,
+        String content,
+        String imageUrl,
+        List<String> attachmentUrls,
+        Instant publishedAt
+) {}

@@ -1,0 +1,30 @@
+<section class="page page-bg" style="background-image: url('/assets/bg/hoop.jpg')">
+  <div class="page__content">
+    <div *ngIf="auth.isAdmin()">
+      <div class="roster-admin-header">
+        <h2>Roster Management</h2>
+        <button class="action-btn add-player-btn" (click)="addNew()">Add Player</button>
+      </div>
+      <table class="roster-table">
+        <tr *ngFor="let p of (players$ | async)">
+          <td>{{ p.numberOnJersey }}</td>
+          <td>{{ p.fullName }}</td>
+          <td>{{ p.birthDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ p.heightCm }} cm</td>
+          <td>{{ p.nationality }}</td>
+          <td>{{ p.position }}</td>
+          <td>
+            <button class="action-btn edit-btn" (click)="edit(p)">Edit</button>
+            <button class="action-btn delete-btn" (click)="remove(p)">Delete</button>
+          </td>
+        </tr>
+      </table>
+      <app-player-form
+        *ngIf="editing()"
+        [player]="editing()"
+        (saved)="saved()"
+        (cancel)="cancel()"
+      ></app-player-form>
+    </div>
+  </div>
+</section>

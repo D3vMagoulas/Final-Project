@@ -1,0 +1,28 @@
+<section class="page page-bg" style="background-image: url('/assets/bg/login1.jpg')">
+  <div class="card">
+    <div class="alert success" *ngIf="message() as m">{{ m }}</div>
+    
+    <div class="alert error" *ngIf="error">{{ error }}</div>
+    
+    <h1>Σύνδεση</h1>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <div class="form-field">
+        <label for="username">E-mail</label>
+        <input id="username" formControlName="username" type="text" placeholder="Εισάγετε το e-mail σας" />
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input id="password" formControlName="password" type="password" placeholder="Εισάγετε τον κωδικό σας" />
+      </div>
+
+      <button type="submit" [disabled]="form.invalid || pending">Σύνδεση</button>
+    </form>
+
+    <div class="footer-text">
+      Δεν έχεις λογαρισμό ;
+      <a routerLink="/auth/signup" [queryParams]="{ returnUrl: returnUrl }">Δημιούργησε έναν</a>
+    </div>
+  </div>
+</section>

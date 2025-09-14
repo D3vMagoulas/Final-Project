@@ -1,0 +1,18 @@
+# IDE
+.idea/
+
+# Java/Maven
+target/
+**/target/
+
+# Angular
+basketball-app-frontend/node_modules/
+basketball-app-frontend/dist/
+basketball-app-frontend/.angular/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets – keep real values out of git
+basketball-app-backend/src/main/resources/application.properties

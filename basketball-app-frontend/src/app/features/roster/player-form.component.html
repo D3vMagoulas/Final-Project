@@ -1,0 +1,51 @@
+<form
+  *ngIf="auth.isAdmin()"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="player-form"
+>
+  <label>
+    Αριθμός φανέλας
+    <input type="number" formControlName="numberOnJersey" />
+  </label>
+  <label>
+    Όνομα
+    <input type="text" formControlName="firstName" />
+  </label>
+  <label>
+    Επώνυμο
+    <input type="text" formControlName="lastName" />
+  </label>
+  <label>
+    Θέση
+    <select formControlName="position">
+      <option value="Point Guard">Point Guard</option>
+      <option value="Shooting Guard">Shooting Guard</option>
+      <option value="Small Forward">Small Forward</option>
+      <option value="Power Forward">Power Forward</option>
+      <option value="Center">Center</option>
+    </select>
+  </label>
+   <label>
+    Ύψος (cm)
+    <input type="number" formControlName="heightCm" />
+  </label>
+  <label>
+    Ημερομηνία γέννησης
+    <input type="date" formControlName="birthDate" />
+  </label>
+  <label>
+    Εθνικότητα
+    <input type="text" formControlName="nationality" />
+  </label>
+  <label>
+    Active
+    <input type="checkbox" formControlName="active" />
+  </label>
+  <div class="form-actions">
+    <button class="action-btn save-btn" type="submit">
+      {{ form.value.id ? 'Update' : 'Add' }} Player
+    </button>
+    <button class="action-btn cancel-btn" type="button" (click)="cancel.emit()">Cancel</button>
+  </div>
+</form>

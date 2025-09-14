@@ -1,0 +1,16 @@
+<section class="page page-bg" style="background-image: url('/assets/bg/news.png')">
+  <div class="page__content">
+    <a *ngIf="auth.isAdmin()" routerLink="/news/manage" class="manage-link"> Manage News </a>
+
+    <div class="news-item" *ngFor="let item of news" (click)="toggle(item)">
+      <div class="news-date">{{ item.publishedAt | date: 'd MMMM yyyy' }}</div>
+      <div class="news-content">
+        <h3 class="news-title">{{ item.title }}</h3>
+        <img *ngIf="item.imageUrl" class="news-image" [src]="item.imageUrl" [alt]="item.title" />
+      </div>
+      <div class="news-body" *ngIf="expandedId === item.id">
+        <p class="news-text">{{ item.content }}</p>
+      </div>
+    </div>
+  </div>
+</section>
